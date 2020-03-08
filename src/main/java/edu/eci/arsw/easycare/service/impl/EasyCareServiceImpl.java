@@ -29,12 +29,13 @@ public class EasyCareServiceImpl implements  EasyCareService{
 
 
     @Override
-    public Cliente getCliente(Long id, String tdoc) throws PersistenceException {
+    public Cliente getCliente(String id, String tdoc) throws PersistenceException {
         return this.cliente.getCliente(id, tdoc);
     }
 
     @Override
     public List<Cliente> getAllClintes() throws PersistenceException {
+
         return this.cliente.getClientes();
     }
 
@@ -59,7 +60,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public Paseador getPaseador(Long documento, String tdoc) throws PersistenceException {
+    public Paseador getPaseador(String documento, String tdoc) throws PersistenceException {
         return this.paseador.getPaseador(documento, tdoc);
     }
 

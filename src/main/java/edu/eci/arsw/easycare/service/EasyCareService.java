@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EasyCareService {
 
-    Cliente getCliente(Long doocumento, String tdoc) throws PersistenceException;
+    Cliente getCliente(String doocumento, String tdoc) throws PersistenceException;
 
     List<Cliente> getAllClintes() throws PersistenceException;
 
@@ -19,7 +19,7 @@ public interface EasyCareService {
 
     void saveMascota(Mascota mascota) throws PersistenceException;
 
-    Paseador getPaseador(Long documento, String tdoc) throws PersistenceException;
+    Paseador getPaseador(String documento, String tdoc) throws PersistenceException;
 
     List<Paseador> getPaseadores() throws PersistenceException;
 

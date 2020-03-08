@@ -1,0 +1,1 @@
+INSERT INTO Cliente VALUES (1015476135, 'cedula', 'Andres Gualdron', 'gualdronsito@hotmail.com', 3016168647);

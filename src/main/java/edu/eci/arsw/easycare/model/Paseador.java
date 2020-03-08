@@ -3,8 +3,8 @@ package edu.eci.arsw.easycare.model;
 import java.util.ArrayList;
 
 public class Paseador {
-    private Long documento;
-    private String tDoc;
+    private String documento;
+    private String tipoDocumento;
     private String nombre;
     private String correo;
     private String telefono;

@@ -31,7 +31,7 @@ public class RestController {
         return "hola";
     }
 
-    @GetMapping("/Clients")
+    @GetMapping("/clients")
     public ResponseEntity<?> getClientes(){
         try {
             return new ResponseEntity<>(easyCareService.getAllClintes(), HttpStatus.ACCEPTED);
@@ -41,16 +41,17 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Clients/{documento}/{tdoc}")
-    public ResponseEntity<?> getClienteByDocument(@PathVariable Long documento, @PathVariable String tdoc){
+    @GetMapping("/clients/{documento}/{tdoc}")
+    public ResponseEntity<?> getClienteByDocument(@PathVariable String documento, @PathVariable String tdoc){
         try{
             return new ResponseEntity<>(easyCareService.getCliente(documento,tdoc), HttpStatus.ACCEPTED);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>("No existe el cliente solicitado", HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/Clients")
+    @PostMapping("/clients")
     public ResponseEntity<?> postCliente(@Valid @RequestBody Cliente cliente){
         try {
             easyCareService.saveCliente(cliente);
@@ -60,7 +61,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Mascotas")
+    @GetMapping("/mascotas")
     public ResponseEntity<?> getMascotas(){
         try {
             return new ResponseEntity<>(easyCareService.getMascotas(),HttpStatus.ACCEPTED);
@@ -69,7 +70,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Mascotas/{id}")
+    @GetMapping("/mascotas/{id}")
     public ResponseEntity<?> getMascota(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getMascota(id),HttpStatus.ACCEPTED);
@@ -78,7 +79,7 @@ public class RestController {
         }
     }
 
-    @PostMapping("/Mascotas")
+    @PostMapping("/mascotas")
     public ResponseEntity<?> postMascota(@Valid @RequestBody Mascota mascota){
         try {
             easyCareService.saveMascota(mascota);
@@ -88,7 +89,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Paseos")
+    @GetMapping("/paseos")
     public ResponseEntity<?> getPaseos(){
         try {
             return new ResponseEntity<>(easyCareService.getPaseos(),HttpStatus.ACCEPTED);
@@ -97,7 +98,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Paseos/{id}")
+    @GetMapping("/paseos/{id}")
     public ResponseEntity<?> getPaseo(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getPaseo(id), HttpStatus.ACCEPTED);
@@ -106,7 +107,7 @@ public class RestController {
         }
     }
 
-    @PostMapping("/Paseos")
+    @PostMapping("/paseos")
     public ResponseEntity<?> postPaseo(@Valid @RequestBody Paseo paseo){
         try {
             easyCareService.savePaseo(paseo);
@@ -116,7 +117,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Paseadores")
+    @GetMapping("/paseadores")
     public ResponseEntity<?> getPaseadores(){
         try {
             return new ResponseEntity<>(easyCareService.getPaseadores(),HttpStatus.ACCEPTED);
@@ -125,8 +126,8 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Paseadores/{documento}/{tdoc}")
-    public ResponseEntity<?> getPaseador(@PathVariable Long documento, @PathVariable String tdoc){
+    @GetMapping("/paseadores/{documento}/{tdoc}")
+    public ResponseEntity<?> getPaseador(@PathVariable String documento, @PathVariable String tdoc){
         try {
             return new ResponseEntity<>(easyCareService.getPaseador(documento,tdoc), HttpStatus.ACCEPTED);
         }catch (Exception e){
@@ -134,7 +135,7 @@ public class RestController {
         }
     }
 
-    @PostMapping("/Paseadores")
+    @PostMapping("/paseadores")
     public ResponseEntity<?> postPaseador(@Valid @RequestBody Paseador paseador){
         try {
             easyCareService.savePaseador(paseador);
@@ -144,7 +145,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Subastas")
+    @GetMapping("/subastas")
     public ResponseEntity<?> getSubastas(){
         try {
             return new ResponseEntity<>(easyCareService.getSubastas(),HttpStatus.ACCEPTED);
@@ -153,7 +154,7 @@ public class RestController {
         }
     }
 
-    @GetMapping("/Subastas/{id}")
+    @GetMapping("/subastas/{id}")
     public ResponseEntity<?> getSubasta(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getSubasta(id), HttpStatus.ACCEPTED);
@@ -162,7 +163,7 @@ public class RestController {
         }
     }
 
-    @PostMapping("/Subastas")
+    @PostMapping("/subastas")
     public ResponseEntity<?> postSubasta(@Valid @RequestBody Subasta subasta){
         try {
             easyCareService.saveSubasta(subasta);

@@ -14,7 +14,7 @@ public interface PaseadorMapper {
     List<Paseador> getPaseadores();
 
     @Select("SELECT * FROM paseador WHERE documento = #{documento} AND tipoDocumento = #{tDoc}")
-    Paseador getPaseador(Long documento, String tDoc);
+    Paseador getPaseador(String documento, String tDoc);
 
     @Insert("")
     void save(Paseador paseador);

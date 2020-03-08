@@ -2,19 +2,19 @@
 
 //TABLAS
 CREATE TABLE Cliente (
-documento INTEGER NOT NULL,
+documento VARCHAR(50) NOT NULL,
 tipoDocumento VARCHAR(50) NOT NULL,
 nombre VARCHAR(100) NOT NULL,
 correo VARCHAR(50) NOT NULL,
-telefono INTEGER NOT NULL
+telefono VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE Paseador(
-documento INTEGER NOT NULL,
+documento VARCHAR(50) NOT NULL,
 tipoDocumento VARCHAR(50) NOT NULL,
 nombre VARCHAR(100) NOT NULL,
 correo VARCHAR(50) NOT NULL,
-telefono INTEGER NOT NULL
+telefono VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE Mascota(
@@ -35,6 +35,8 @@ CREATE TABLE Subasta(
 id INTEGER NOT NULL,
 oferta INTEGER NOT NULL
 );
+
+
 
 //PRIMARIAS
 

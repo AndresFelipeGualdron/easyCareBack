@@ -16,7 +16,7 @@ public interface ClienteMapper {
     List<Cliente> getClientes();
 
     @Select("SELECT * FROM cliente WHERE documento = #{documento} AND tipoDocumento = #{tdoc}")
-    Cliente getCliente(@Param("documento") Long documento, @Param("tdoc") String tdoc);
+    Cliente getCliente(@Param("documento") String documento, @Param("tdoc") String tdoc);
 
     @Insert("")
     void save(@Param("cliente") Cliente cliente);
