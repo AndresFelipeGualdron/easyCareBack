@@ -1,0 +1,11 @@
+datasources:
+  principal:
+    jdbcUrl: jdbc:ec2-184-72-236-3.compute-1.amazonaws.com:5432/dds07cq6hsj41t?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory
+    username: euedusvcccbmyj
+    password: ff34d5cc6f72b4616e4957900f1df4f921df3c45886ce1d916d5dc9fe113b902
+    maximumPoolSize: 1
+  test:
+    jdbcUrl: jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL
+    username: sa
+    password:
+    maximumPoolSize: 1
