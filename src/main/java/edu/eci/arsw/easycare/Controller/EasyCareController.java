@@ -1,30 +1,28 @@
 package edu.eci.arsw.easycare.Controller;
 
 import edu.eci.arsw.data.dao.mybatis.PersistenceException;
-import edu.eci.arsw.easycare.model.*;
 import edu.eci.arsw.easycare.service.EasyCareService;
-import edu.eci.arsw.easycare.service.ExcepcionServiciosEasyCare;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-@Controller
-public class RestController {
+@org.springframework.web.bind.annotation.RestController
+@Api(value = "servicio Easy Care")
+public class EasyCareController {
 
     private final EasyCareService easyCareService;
 
-    public RestController(EasyCareService easyCareService) {
+    public EasyCareController(EasyCareService easyCareService) {
         this.easyCareService = easyCareService;
     }
+
+
 
     @GetMapping("")
     public String holaMundo(Model model){
@@ -32,6 +30,7 @@ public class RestController {
     }
 
     @GetMapping("/clients")
+    @ApiOperation(value = "Obtener todos los clientes",notes = "retorna todos los clientes")
     public ResponseEntity<?> getClientes(){
         try {
             return new ResponseEntity<>(easyCareService.getAllClintes(), HttpStatus.ACCEPTED);
@@ -42,6 +41,7 @@ public class RestController {
     }
 
     @GetMapping("/clients/{documento}/{tdoc}")
+    @ApiOperation(value = "Encuentra un cliente",notes = "devuelve un solo cliente por documento y tipo de documento")
     public ResponseEntity<?> getClienteByDocument(@PathVariable String documento, @PathVariable String tdoc){
         try{
             return new ResponseEntity<>(easyCareService.getCliente(documento,tdoc), HttpStatus.ACCEPTED);
@@ -51,17 +51,8 @@ public class RestController {
         }
     }
 
-    @PostMapping("/clients")
-    public ResponseEntity<?> postCliente(@Valid @RequestBody Cliente cliente){
-        try {
-            easyCareService.saveCliente(cliente);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (Exception e){
-            return  new ResponseEntity<>("No se pudo crear el cliente", HttpStatus.FORBIDDEN);
-        }
-    }
-
     @GetMapping("/mascotas")
+    @ApiOperation(value = "Obtiene todas las mascotas",notes = "devuelve todas las mascotas")
     public ResponseEntity<?> getMascotas(){
         try {
             return new ResponseEntity<>(easyCareService.getMascotas(),HttpStatus.ACCEPTED);
@@ -71,6 +62,7 @@ public class RestController {
     }
 
     @GetMapping("/mascotas/{id}")
+    @ApiOperation(value = "encuentra una mascota",notes = "devuelve una mascota por id")
     public ResponseEntity<?> getMascota(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getMascota(id),HttpStatus.ACCEPTED);
@@ -79,17 +71,8 @@ public class RestController {
         }
     }
 
-    @PostMapping("/mascotas")
-    public ResponseEntity<?> postMascota(@Valid @RequestBody Mascota mascota){
-        try {
-            easyCareService.saveMascota(mascota);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No fue posible adicionar la mascota",HttpStatus.FORBIDDEN);
-        }
-    }
-
     @GetMapping("/paseos")
+    @ApiOperation(value = "Obtiene todos los paseos",notes = "devuelve todos los paseos")
     public ResponseEntity<?> getPaseos(){
         try {
             return new ResponseEntity<>(easyCareService.getPaseos(),HttpStatus.ACCEPTED);
@@ -99,6 +82,7 @@ public class RestController {
     }
 
     @GetMapping("/paseos/{id}")
+    @ApiOperation(value = "Encuentra un paseo",notes = "devuelve un paseo por id")
     public ResponseEntity<?> getPaseo(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getPaseo(id), HttpStatus.ACCEPTED);
@@ -107,17 +91,8 @@ public class RestController {
         }
     }
 
-    @PostMapping("/paseos")
-    public ResponseEntity<?> postPaseo(@Valid @RequestBody Paseo paseo){
-        try {
-            easyCareService.savePaseo(paseo);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No fue posible adicionar el paseo",HttpStatus.FORBIDDEN);
-        }
-    }
-
     @GetMapping("/paseadores")
+    @ApiOperation(value = "Obtiene todos los paseadores",notes = "Devuelve todos los paseadores")
     public ResponseEntity<?> getPaseadores(){
         try {
             return new ResponseEntity<>(easyCareService.getPaseadores(),HttpStatus.ACCEPTED);
@@ -127,6 +102,7 @@ public class RestController {
     }
 
     @GetMapping("/paseadores/{documento}/{tdoc}")
+    @ApiOperation(value = "Obtiene un paseador",notes = "Devuelve un paseador por documento y tipo de documento")
     public ResponseEntity<?> getPaseador(@PathVariable String documento, @PathVariable String tdoc){
         try {
             return new ResponseEntity<>(easyCareService.getPaseador(documento,tdoc), HttpStatus.ACCEPTED);
@@ -135,17 +111,8 @@ public class RestController {
         }
     }
 
-    @PostMapping("/paseadores")
-    public ResponseEntity<?> postPaseador(@Valid @RequestBody Paseador paseador){
-        try {
-            easyCareService.savePaseador(paseador);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No fue posible adicionar el paseador",HttpStatus.FORBIDDEN);
-        }
-    }
-
     @GetMapping("/subastas")
+    @ApiOperation(value = "Obtine todas las subastas",notes = "Devuelve todas las subastas")
     public ResponseEntity<?> getSubastas(){
         try {
             return new ResponseEntity<>(easyCareService.getSubastas(),HttpStatus.ACCEPTED);
@@ -155,21 +122,12 @@ public class RestController {
     }
 
     @GetMapping("/subastas/{id}")
+    @ApiOperation(value = "Encuentra una subasta",notes = "Devuelve una subasta por id")
     public ResponseEntity<?> getSubasta(@PathVariable Long id){
         try {
             return new ResponseEntity<>(easyCareService.getSubasta(id), HttpStatus.ACCEPTED);
         }catch (Exception e){
             return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/subastas")
-    public ResponseEntity<?> postSubasta(@Valid @RequestBody Subasta subasta){
-        try {
-            easyCareService.saveSubasta(subasta);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No fue posible adicionar la subasta",HttpStatus.FORBIDDEN);
         }
     }
 }

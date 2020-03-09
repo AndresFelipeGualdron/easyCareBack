@@ -3,12 +3,29 @@ package edu.eci.arsw.easycare.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
+
+
+@ApiModel("Model Cliente")
 public class Cliente implements Serializable{
 
+    @NotNull
+    @ApiModelProperty(value = "el documento del cliente (Hace parte del la primaria compuesta)", required = true)
     private String documento;
+    @NotNull
+    @ApiModelProperty(value = "el tipo de documeto del cliente (Hace parte de la primaria compuesta)", required = true)
     private String tipoDocumento;
+    @NotNull
+    @ApiModelProperty(value = "el nombre del cliente", required = true)
     private String nombre;
+    @NotNull
+    @ApiModelProperty(value = "el correo del cliente", required = true)
     private String correo;
+    @NotNull
+    @ApiModelProperty(value = "el telefono del cliente", required = true)
     private String telefono;
 
     private ArrayList<Subasta> subastas;
