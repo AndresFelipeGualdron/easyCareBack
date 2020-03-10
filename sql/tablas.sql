@@ -1,6 +1,5 @@
 
-
-//TABLAS
+--TABLAS
 CREATE TABLE Cliente (
 documento VARCHAR(50) NOT NULL,
 tipoDocumento VARCHAR(50) NOT NULL,
@@ -38,9 +37,9 @@ oferta INTEGER NOT NULL
 
 
 
-//PRIMARIAS
+--PRIMARIAS
 
-//SECUENCIAS
+--SECUENCIAS
 CREATE SEQUENCE id_mascota;
 CREATE SEQUENCE id_paseo;
 CREATE SEQUENCE id_subasta;
