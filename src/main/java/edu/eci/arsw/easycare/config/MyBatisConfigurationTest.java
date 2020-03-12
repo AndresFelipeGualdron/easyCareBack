@@ -1,6 +1,6 @@
 package edu.eci.arsw.easycare.config;
 
-
+import com.zaxxer.hikari.HikariDataSource;
 import edu.eci.arsw.data.dao.*;
 import edu.eci.arsw.data.dao.mybatis.*;
 import edu.eci.arsw.data.dao.mybatis.mappers.*;
@@ -8,29 +8,33 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
 import javax.inject.Named;
+import javax.sql.DataSource;
 
 @Configuration
 @MapperScan( basePackages = "edu.eci.arsw.data.dao.mybatis.mappers")
-public class MyBatisConfiguration {
+public class MyBatisConfigurationTest {
+
+    private static final String TEST_SESSION_FACTORY = "testSessionFactory";
 
 
 
-    private static final String PRINCIPAL_SESSION_FACTORY = "principalSessionFactory";
-
-
-    @Bean(name = PRINCIPAL_SESSION_FACTORY, destroyMethod = "")
-    @Primary
-    public SqlSessionFactoryBean sqlSessionFactoryPrimary(@Named(ConfigurationDB.PRIMARY_DATASOURCE) final DataSource principalDataSource) throws Exception{
+    @Bean(name = TEST_SESSION_FACTORY, destroyMethod = "")
+    public SqlSessionFactoryBean testSqlSessionFactory(@Named(ConfigurationDB.SECONDARY_DATASOURCE) final DataSource dataSource) throws Exception{
         final SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(principalDataSource);
-        SqlSessionFactory sqlSessionFactory;
-        sqlSessionFactory = sqlSessionFactoryBean.getObject();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject();
         sqlSessionFactory.getConfiguration().addMapper(ClienteMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(MascotaMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(PaseadorMapper.class);
@@ -40,72 +44,62 @@ public class MyBatisConfiguration {
         return sqlSessionFactoryBean;
     }
 
-    @Bean
-    @Primary
-    public MapperFactoryBean<ClienteMapper> clienteMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+    @Bean(name = "clientMapperTest")
+    public MapperFactoryBean<ClienteMapper> clienteMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
         MapperFactoryBean<ClienteMapper> factoryBean = new MapperFactoryBean<>(ClienteMapper.class);
         factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
         return factoryBean;
     }
 
-    @Bean
-    @Primary
-    public MapperFactoryBean<MascotaMapper> mascotaMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+    @Bean(name = "mascotaMapperTest")
+    public MapperFactoryBean<MascotaMapper> mascotaMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
         MapperFactoryBean<MascotaMapper> factoryBean = new MapperFactoryBean<>(MascotaMapper.class);
         factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
         return factoryBean;
     }
 
-    @Bean
-    @Primary
-    public MapperFactoryBean<PaseadorMapper> paseadorMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+    @Bean(name = "paseadorMapperTest")
+    public MapperFactoryBean<PaseadorMapper> paseadorMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
         MapperFactoryBean<PaseadorMapper> factoryBean = new MapperFactoryBean<>(PaseadorMapper.class);
         factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
         return factoryBean;
     }
 
-    @Bean
-    @Primary
-    public MapperFactoryBean<PaseoMapper> paseoMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+    @Bean(name = "paseoMapperTest")
+    public MapperFactoryBean<PaseoMapper> paseoMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
         MapperFactoryBean<PaseoMapper> factoryBean = new MapperFactoryBean<>(PaseoMapper.class);
         factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
         return factoryBean;
     }
 
-    @Bean
-    @Primary
-    public MapperFactoryBean<SubastaMapper> subastaMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+    @Bean(name = "subastaMapperTest")
+    public MapperFactoryBean<SubastaMapper> subastaMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
         MapperFactoryBean<SubastaMapper> factoryBean = new MapperFactoryBean<>(SubastaMapper.class);
         factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
         return factoryBean;
     }
 
-    @Bean
-    @Primary
+    @Bean(name = "clienteDAOTest")
     public ClienteDAO clienteDAO(){
-        return new MyBatisClienteDAO();
+        return new MyBatisClienteDAOTest();
     }
 
-    @Bean
-    @Primary
+    @Bean("mascotaDAOTest")
     public MascotaDAO mascotaDAO(){
         return new MyBatisMascotaDAO();
     }
 
-    @Bean
-    @Primary
+    @Bean("paseadorDAOTest")
     public PaseadorDAO paseadorDAO(){
         return new MyBatisPaseadorDAO();
     }
 
-    @Bean
-    @Primary
+    @Bean("paseoDAOTest")
     public PaseoDAO paseoDAO(){
         return new MyBatisPaseoDAO();
     }
 
-    @Bean
-    @Primary
+    @Bean("subastaDAOTest")
     public SubastaDAO subastaDAO(){
         return new MyBatisSubastaDAO();
     }

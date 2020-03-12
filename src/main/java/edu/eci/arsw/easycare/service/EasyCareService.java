@@ -1,12 +1,12 @@
 package edu.eci.arsw.easycare.service;
 
+import edu.eci.arsw.data.dao.ClienteDAO;
 import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.model.*;
 
 import java.util.List;
 
 public interface EasyCareService {
-
     Cliente getCliente(String doocumento, String tdoc) throws PersistenceException;
 
     List<Cliente> getAllClintes() throws PersistenceException;

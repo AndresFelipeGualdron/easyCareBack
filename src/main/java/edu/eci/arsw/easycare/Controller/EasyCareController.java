@@ -4,18 +4,20 @@ import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.validation.Valid;
 
 @org.springframework.web.bind.annotation.RestController
 @Api(value = "servicio Easy Care")
 public class EasyCareController {
 
+    @Autowired
     private final EasyCareService easyCareService;
 
     public EasyCareController(EasyCareService easyCareService) {

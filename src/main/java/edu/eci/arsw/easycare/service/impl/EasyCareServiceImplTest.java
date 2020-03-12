@@ -4,105 +4,107 @@ import edu.eci.arsw.data.dao.*;
 import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.model.*;
 import edu.eci.arsw.easycare.service.EasyCareService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Data
-@Component
-@Primary
-public class EasyCareServiceImpl implements  EasyCareService{
+@Qualifier("test")
+public class EasyCareServiceImplTest implements EasyCareService{
+
+
+    public EasyCareService service;
 
     @Autowired
+    @Qualifier("clienteDAOTest")
     private ClienteDAO cliente;
     @Autowired
+    @Qualifier("mascotaDAOTest")
     private MascotaDAO mascota;
     @Autowired
+    @Qualifier("paseadorDAOTest")
     private PaseadorDAO paseador;
     @Autowired
+    @Qualifier("paseoDAOTest")
     private PaseoDAO paseo;
     @Autowired
+    @Qualifier("subastaDAOTest")
     private SubastaDAO subasta;
 
-
     @Override
-    public Cliente getCliente(String id, String tdoc) throws PersistenceException {
-        return this.cliente.getCliente(id, tdoc);
+    public Cliente getCliente(String doocumento, String tdoc) throws PersistenceException {
+        return null;
     }
 
     @Override
     public List<Cliente> getAllClintes() throws PersistenceException {
-        return this.cliente.getClientes();
+        return cliente.getClientes();
     }
 
     @Override
     public void saveCliente(Cliente cliente) throws PersistenceException {
-        this.cliente.save(cliente);
+
     }
 
     @Override
     public Mascota getMascota(Long id) throws PersistenceException {
-        return this.mascota.getMascota(id);
+        return null;
     }
 
     @Override
     public List<Mascota> getMascotas() throws PersistenceException {
-        return this.mascota.getMascotas();
+        return null;
     }
 
     @Override
     public void saveMascota(Mascota mascota) throws PersistenceException {
-        this.mascota.save(mascota);
+
     }
 
     @Override
     public Paseador getPaseador(String documento, String tdoc) throws PersistenceException {
-        return this.paseador.getPaseador(documento, tdoc);
+        return null;
     }
 
     @Override
     public List<Paseador> getPaseadores() throws PersistenceException {
-        return this.paseador.getPaseadores();
+        return null;
     }
 
     @Override
     public void savePaseador(Paseador paseador) throws PersistenceException {
-        this.paseador.save(paseador);
+
     }
 
     @Override
     public Paseo getPaseo(Long id) throws PersistenceException {
-        return this.paseo.getPaseo(id);
+        return null;
     }
 
     @Override
     public List<Paseo> getPaseos() throws PersistenceException {
-        return this.paseo.getPaseos();
+        return null;
     }
 
     @Override
     public void savePaseo(Paseo paseo) throws PersistenceException {
-        this.paseo.save(paseo);
+
     }
 
     @Override
     public Subasta getSubasta(Long id) throws PersistenceException {
-        return this.subasta.getSubasta(id);
+        return null;
     }
 
     @Override
     public List<Subasta> getSubastas() throws PersistenceException {
-        return this.subasta.getSubastas();
+        return null;
     }
 
     @Override
     public void saveSubasta(Subasta subasta) throws PersistenceException {
-        this.subasta.save(subasta);
-    }
 
+    }
 }
