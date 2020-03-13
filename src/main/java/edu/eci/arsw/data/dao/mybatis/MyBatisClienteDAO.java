@@ -5,11 +5,7 @@ import edu.eci.arsw.data.dao.ClienteDAO;
 import edu.eci.arsw.data.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.arsw.easycare.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -21,17 +17,42 @@ public class MyBatisClienteDAO implements ClienteDAO {
 
 
     @Override
-    public List<Cliente> getClientes() {
-        return cliente.getClientes();
+    public List<Cliente> getClientes() throws PersistenceException{
+        try{
+            List<Cliente> li = cliente.getClientes();
+            if (li.size() == 0) throw new PersistenceException("No hay clientes agregados");
+            return li;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+
     }
 
     @Override
-    public Cliente getCliente(String documento, String tdoc) {
-        return cliente.getCliente(documento, tdoc);
+    public Cliente getCliente(String documento, String tdoc) throws PersistenceException{
+        try {
+            Cliente cli = cliente.getCliente(documento, tdoc);
+            if(cli == null) throw new PersistenceException("No se encontro el cliente");
+            return cli;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+
     }
 
     @Override
-    public void save(Cliente cliente) {
-        this.cliente.save(cliente);
+    public void save(Cliente cliente) throws PersistenceException{
+        try{
+            this.cliente.save(cliente);
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+
+    }
+
+
+    //SET AND GETTERS
+    public void setCliente(ClienteMapper cliente){
+        this.cliente = cliente;
     }
 }

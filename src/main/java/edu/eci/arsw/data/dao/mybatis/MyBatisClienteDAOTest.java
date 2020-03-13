@@ -1,6 +1,5 @@
 package edu.eci.arsw.data.dao.mybatis;
 
-import edu.eci.arsw.data.dao.ClienteDAO;
 import edu.eci.arsw.data.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.arsw.easycare.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MyBatisClienteDAOTest implements ClienteDAO {
+public class MyBatisClienteDAOTest extends MyBatisClienteDAO{
 
     @Autowired
     @Qualifier("clientMapperTest")
@@ -18,17 +17,20 @@ public class MyBatisClienteDAOTest implements ClienteDAO {
 
 
     @Override
-    public List<Cliente> getClientes() {
-        return cliente.getClientes();
+    public List<Cliente> getClientes() throws PersistenceException{
+        super.setCliente(cliente);
+        return super.getClientes();
     }
 
     @Override
-    public Cliente getCliente(String documento, String tdoc) {
-        return cliente.getCliente(documento,tdoc);
+    public Cliente getCliente(String documento, String tdoc) throws PersistenceException{
+        super.setCliente(cliente);
+        return super.getCliente(documento,tdoc);
     }
 
     @Override
-    public void save(Cliente cliente) {
-        this.cliente.save(cliente);
+    public void save(Cliente cliente)throws PersistenceException {
+        super.setCliente(this.cliente);
+        super.save(cliente);
     }
 }

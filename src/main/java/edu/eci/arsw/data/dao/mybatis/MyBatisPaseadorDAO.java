@@ -16,16 +16,38 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
 
     @Override
     public Paseador getPaseador(String documento, String tdoc) throws PersistenceException {
-        return null;
+        try{
+            Paseador pa = paseador.getPaseador(documento,tdoc);
+            if(pa == null) throw new PersistenceException("no se ha podido encontrar al paseador");
+            return pa;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
     }
 
     @Override
     public List<Paseador> getPaseadores() throws PersistenceException {
-        return null;
+        try{
+            List<Paseador> ls = paseador.getPaseadores();
+            if(ls.size() == 0) throw new PersistenceException("no hay paseadores registrados");
+            return ls;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
     }
 
     @Override
     public void save(Paseador paseador) throws PersistenceException {
+        try{
+            this.paseador.save(paseador);
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
 
+    //SETS AND GETTERS
+
+    public void setPaseador(PaseadorMapper paseador){
+        this.paseador = paseador;
     }
 }

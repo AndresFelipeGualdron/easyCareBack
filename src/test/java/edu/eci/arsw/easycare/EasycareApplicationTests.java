@@ -6,6 +6,7 @@ import edu.eci.arsw.easycare.config.MyBatisConfiguration;
 import edu.eci.arsw.easycare.config.MyBatisConfigurationTest;
 import edu.eci.arsw.easycare.model.Cliente;
 import edu.eci.arsw.easycare.service.EasyCareService;
+import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import edu.eci.arsw.easycare.service.impl.EasyCareServiceImpl;
 import edu.eci.arsw.easycare.service.impl.EasyCareServiceImplTest;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,7 @@ import javax.annotation.sql.DataSourceDefinition;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @SpringBootTest()
 class EasycareApplicationTests {
@@ -42,13 +44,10 @@ class EasycareApplicationTests {
         try {
             List<Cliente> clientes = service.getAllClintes();
             System.out.println(clientes.size());
-            if(clientes != null) clientes.forEach(cliente -> { System.out.println(cliente+"#########################");
-            });
-//            System.out.println(easyCareService.getAllClintes() + "###############");
-            assertTrue(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-
+            fail("se esperaba una excepcion, ya que no se ha agregado ningun cliente");
+            assertTrue(false);
+        } catch (ExceptionServiciosEasyCare e) {
+            System.out.println("sisas");
         }
 
     }

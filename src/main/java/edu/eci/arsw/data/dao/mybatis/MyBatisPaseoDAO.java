@@ -16,16 +16,37 @@ public class MyBatisPaseoDAO implements PaseoDAO {
 
     @Override
     public Paseo getPaseo(Long id) throws PersistenceException {
-        return null;
+        try{
+            Paseo pa = paseo.getPaseo(id);
+            if(pa == null) throw new PersistenceException("no se ha podido encontrar el paseo");
+            return pa;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
     }
 
     @Override
     public List<Paseo> getPaseos() throws PersistenceException {
-        return null;
+        try{
+            List<Paseo> ls = paseo.getPaseos();
+            if(ls.size() == 0) throw new PersistenceException("no hay paseos registrados");
+            return ls;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
     }
 
     @Override
     public void save(Paseo paseo) throws PersistenceException {
+        try {
+            this.paseo.save(paseo);
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
 
+    //SET AND GETTERS
+    public void setPaseo(PaseoMapper paseo) {
+        this.paseo = paseo;
     }
 }

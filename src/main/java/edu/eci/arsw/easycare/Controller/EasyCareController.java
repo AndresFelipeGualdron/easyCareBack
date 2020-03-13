@@ -2,13 +2,12 @@ package edu.eci.arsw.easycare.Controller;
 
 import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.service.EasyCareService;
+import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +38,7 @@ public class EasyCareController {
     public ResponseEntity<?> getClientes(){
         try {
             return new ResponseEntity<>(easyCareService.getAllClintes(), HttpStatus.ACCEPTED);
-        } catch (PersistenceException e) {
+        } catch (ExceptionServiciosEasyCare e) {
             e.printStackTrace();
             return null;
         }

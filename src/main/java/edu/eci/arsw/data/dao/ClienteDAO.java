@@ -1,17 +1,15 @@
 package edu.eci.arsw.data.dao;
 
+import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.model.Cliente;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 public interface ClienteDAO {
 
-    List<Cliente> getClientes();
+    List<Cliente> getClientes() throws PersistenceException;
 
-    Cliente getCliente(String documento,String tdoc);
+    Cliente getCliente(String documento,String tdoc) throws PersistenceException;
 
-    void save(Cliente cliente);
+    void save(Cliente cliente) throws PersistenceException;
 }

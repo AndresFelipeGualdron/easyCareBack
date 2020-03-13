@@ -16,16 +16,41 @@ public class MyBatisMascotaDAO implements MascotaDAO {
 
     @Override
     public Mascota getMascota(Long id) throws PersistenceException {
-        return null;
+        try{
+            Mascota ma = mascota.getMascota(id);
+            if(ma == null) throw new PersistenceException("No se pudo encontrar la mascota");
+            return ma;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+
     }
 
     @Override
     public List<Mascota> getMascotas() throws PersistenceException {
-        return null;
+        try{
+            List<Mascota> ls = mascota.getMascotas();
+            if (ls.size() == 0) throw new PersistenceException("no hay mascotas registradas");
+            return ls;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
     }
 
     @Override
     public void save(Mascota mascota) throws PersistenceException {
+        try{
+            this.mascota.save(mascota);
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+
+    }
+
+    //SET AND GETTERS
+
+    public void setMascota(MascotaMapper mascota){
+        this.mascota = mascota;
 
     }
 }

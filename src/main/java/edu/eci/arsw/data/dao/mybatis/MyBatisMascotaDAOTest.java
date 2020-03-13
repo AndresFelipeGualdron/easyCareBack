@@ -1,6 +1,5 @@
 package edu.eci.arsw.data.dao.mybatis;
 
-import edu.eci.arsw.data.dao.MascotaDAO;
 import edu.eci.arsw.data.dao.mybatis.mappers.MascotaMapper;
 import edu.eci.arsw.easycare.model.Mascota;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MyBatisMascotaDAOTest implements MascotaDAO {
+public class MyBatisMascotaDAOTest extends MyBatisMascotaDAO {
 
     @Autowired
     @Qualifier("mascotaMapperTest")
@@ -18,16 +17,19 @@ public class MyBatisMascotaDAOTest implements MascotaDAO {
 
     @Override
     public Mascota getMascota(Long id) throws PersistenceException {
-        return null;
+        super.setMascota(mascota);
+        return super.getMascota(id);
     }
 
     @Override
     public List<Mascota> getMascotas() throws PersistenceException {
-        return null;
+        super.setMascota(mascota);
+        return super.getMascotas();
     }
 
     @Override
     public void save(Mascota mascota) throws PersistenceException {
-
+        super.setMascota(this.mascota);
+        super.save(mascota);
     }
 }

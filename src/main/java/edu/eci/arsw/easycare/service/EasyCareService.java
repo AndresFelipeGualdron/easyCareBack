@@ -7,33 +7,33 @@ import edu.eci.arsw.easycare.model.*;
 import java.util.List;
 
 public interface EasyCareService {
-    Cliente getCliente(String doocumento, String tdoc) throws PersistenceException;
+    Cliente getCliente(String doocumento, String tdoc) throws ExceptionServiciosEasyCare;
 
-    List<Cliente> getAllClintes() throws PersistenceException;
+    List<Cliente> getAllClintes() throws ExceptionServiciosEasyCare;
 
-    void saveCliente(Cliente cliente) throws PersistenceException;
+    void saveCliente(Cliente cliente) throws ExceptionServiciosEasyCare;
 
-    Mascota getMascota(Long id) throws PersistenceException;
+    Mascota getMascota(Long id) throws ExceptionServiciosEasyCare;
 
-    List<Mascota> getMascotas() throws PersistenceException;
+    List<Mascota> getMascotas() throws ExceptionServiciosEasyCare;
 
-    void saveMascota(Mascota mascota) throws PersistenceException;
+    void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare;
 
-    Paseador getPaseador(String documento, String tdoc) throws PersistenceException;
+    Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare;
 
-    List<Paseador> getPaseadores() throws PersistenceException;
+    List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare;
 
-    void savePaseador(Paseador paseador) throws PersistenceException;
+    void savePaseador(Paseador paseador) throws ExceptionServiciosEasyCare;
 
-    Paseo getPaseo(Long id) throws PersistenceException;
+    Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare;
 
-    List<Paseo> getPaseos() throws PersistenceException;
+    List<Paseo> getPaseos() throws ExceptionServiciosEasyCare;
 
-    void savePaseo(Paseo paseo) throws PersistenceException;
+    void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare;
 
-    Subasta getSubasta(Long id) throws PersistenceException;
+    Subasta getSubasta(Long id) throws ExceptionServiciosEasyCare;
 
-    List<Subasta> getSubastas() throws PersistenceException;
+    List<Subasta> getSubastas() throws ExceptionServiciosEasyCare;
 
-    void saveSubasta(Subasta subasta) throws PersistenceException;
+    void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
 }

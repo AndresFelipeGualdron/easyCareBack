@@ -1,6 +1,5 @@
 package edu.eci.arsw.data.dao.mybatis;
 
-import edu.eci.arsw.data.dao.PaseoDAO;
 import edu.eci.arsw.data.dao.mybatis.mappers.PaseoMapper;
 import edu.eci.arsw.easycare.model.Paseo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MyBatisPaseoDAOTest implements PaseoDAO {
+public class MyBatisPaseoDAOTest extends MyBatisPaseoDAO {
 
     @Autowired
     @Qualifier("paseoMapperTest")
@@ -18,16 +17,19 @@ public class MyBatisPaseoDAOTest implements PaseoDAO {
 
     @Override
     public Paseo getPaseo(Long id) throws PersistenceException {
-        return null;
+        super.setPaseo(paseo);
+        return super.getPaseo(id);
     }
 
     @Override
     public List<Paseo> getPaseos() throws PersistenceException {
-        return null;
+        super.setPaseo(paseo);
+        return super.getPaseos();
     }
 
     @Override
     public void save(Paseo paseo) throws PersistenceException {
-
+        super.setPaseo(this.paseo);
+        super.save(paseo);
     }
 }
