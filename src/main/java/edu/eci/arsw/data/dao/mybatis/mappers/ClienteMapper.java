@@ -18,6 +18,9 @@ public interface ClienteMapper {
     @Select("SELECT * FROM cliente WHERE documento = #{documento} AND tipoDocumento = #{tdoc}")
     Cliente getCliente(@Param("documento") String documento, @Param("tdoc") String tdoc);
 
+    @Select("SELECT * FROM cliente WHERE correo = #{correo}")
+    Cliente getClienteCorreo(@Param("correo") String correo);
+
     @Insert("")
     void save(@Param("cliente") Cliente cliente);
 

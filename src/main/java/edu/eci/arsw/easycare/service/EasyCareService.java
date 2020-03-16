@@ -9,6 +9,8 @@ import java.util.List;
 public interface EasyCareService {
     Cliente getCliente(String doocumento, String tdoc) throws ExceptionServiciosEasyCare;
 
+    Cliente getCliente(String correo) throws ExceptionServiciosEasyCare;
+
     List<Cliente> getAllClintes() throws ExceptionServiciosEasyCare;
 
     void saveCliente(Cliente cliente) throws ExceptionServiciosEasyCare;

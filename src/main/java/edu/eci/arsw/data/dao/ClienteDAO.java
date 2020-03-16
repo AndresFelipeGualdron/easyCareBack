@@ -11,5 +11,7 @@ public interface ClienteDAO {
 
     Cliente getCliente(String documento,String tdoc) throws PersistenceException;
 
+    Cliente getCliente(String correo) throws PersistenceException;
+
     void save(Cliente cliente) throws PersistenceException;
 }

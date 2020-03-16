@@ -41,6 +41,12 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
+    public Cliente getCliente(String correo) throws ExceptionServiciosEasyCare{
+        super.setCliente(cliente);
+        return super.getCliente(correo);
+    }
+
+    @Override
     public List<Cliente> getAllClintes() throws ExceptionServiciosEasyCare {
         super.setCliente(cliente);
         return super.getAllClintes();

@@ -41,6 +41,17 @@ public class MyBatisClienteDAO implements ClienteDAO {
     }
 
     @Override
+    public Cliente getCliente(String correo) throws PersistenceException {
+        try{
+            Cliente cli = this.cliente.getClienteCorreo(correo);
+            if(cli == null) throw new PersistenceException("No se encontro el cliente");
+            return cli;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
+    @Override
     public void save(Cliente cliente) throws PersistenceException{
         try{
             this.cliente.save(cliente);
