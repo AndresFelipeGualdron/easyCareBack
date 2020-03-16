@@ -41,6 +41,17 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
+    public Cliente getCliente(String correo) throws ExceptionServiciosEasyCare {
+        try{
+//            return new Cliente();
+            return this.cliente.getCliente(correo);
+        }catch (PersistenceException e){
+            throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
+//            return null;
+        }
+    }
+
+    @Override
     public List<Cliente> getAllClintes() throws ExceptionServiciosEasyCare {
         try {
             return this.cliente.getClientes();
@@ -90,6 +101,15 @@ public class EasyCareServiceImpl implements  EasyCareService{
         try {
             return this.paseador.getPaseador(documento, tdoc);
         } catch (PersistenceException e) {
+            throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
+        }
+    }
+
+    @Override
+    public Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare {
+        try{
+            return this.paseador.getPaseador(correo);
+        }catch (PersistenceException e){
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
         }
     }

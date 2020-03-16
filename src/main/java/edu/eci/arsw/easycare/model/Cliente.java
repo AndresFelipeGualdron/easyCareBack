@@ -27,15 +27,34 @@ public class Cliente implements Serializable{
     @NotNull
     @ApiModelProperty(value = "el telefono del cliente", required = true)
     private String telefono;
-
+    @NotNull
+    @ApiModelProperty(value = "Subastas que ha creado el cliente", required = true)
     private ArrayList<Subasta> subastas;
-
+    @NotNull
+    @ApiModelProperty(value = "Paseos que ha solicitado el cliente", required = true)
     private ArrayList<Paseo> paseos;
-
+    @NotNull
+    @ApiModelProperty(value = "Mascotas del cliente", required = true)
     private ArrayList<Mascota> mascotas;
+    @NotNull
+    @ApiModelProperty(value = "Subastas a las que se ha unido el cliente", required = true)
+    private ArrayList<Subasta> subastasUnidas;
+    @NotNull
+    @ApiModelProperty(value = "Rutas que ha establecido el cliente en los paseos", required = true)
+    private ArrayList<Ruta> rutasEstablecidas;
+
+    private String password;
 
     public Cliente(){
 
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDocumento() {

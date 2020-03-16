@@ -9,6 +9,8 @@ import java.util.List;
 public interface EasyCareService {
     Cliente getCliente(String doocumento, String tdoc) throws ExceptionServiciosEasyCare;
 
+    Cliente getCliente(String correo) throws ExceptionServiciosEasyCare;
+
     List<Cliente> getAllClintes() throws ExceptionServiciosEasyCare;
 
     void saveCliente(Cliente cliente) throws ExceptionServiciosEasyCare;
@@ -20,6 +22,8 @@ public interface EasyCareService {
     void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare;
 
     Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare;
+
+    Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare;
 
     List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare;
 

@@ -29,6 +29,12 @@ public class MyBatisClienteDAOTest extends MyBatisClienteDAO{
     }
 
     @Override
+    public Cliente getCliente(String correo) throws PersistenceException{
+        super.setCliente(cliente);
+        return super.getCliente(correo);
+    }
+
+    @Override
     public void save(Cliente cliente)throws PersistenceException {
         super.setCliente(this.cliente);
         super.save(cliente);
