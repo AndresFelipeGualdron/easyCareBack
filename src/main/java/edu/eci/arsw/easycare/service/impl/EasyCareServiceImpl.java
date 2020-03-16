@@ -106,6 +106,15 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
+    public Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare {
+        try{
+            return this.paseador.getPaseador(correo);
+        }catch (PersistenceException e){
+            throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
+        }
+    }
+
+    @Override
     public List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare {
         try {
             return this.paseador.getPaseadores();

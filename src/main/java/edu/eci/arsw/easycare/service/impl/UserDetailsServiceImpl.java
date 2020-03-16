@@ -32,15 +32,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try{
-//            Cliente cl = easyCareService.getCliente(username);
-//            return userBuilder(cl.getCorreo(), cl.getPassword(), new BCryptPasswordEncoder().encode(cl.getPassword()),"cliente");
-            return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"cliente");
-        }catch (Exception e){
+            Cliente cl = easyCareService.getCliente(username);
+            return userBuilder(cl.getCorreo(), cl.getPassword(), new BCryptPasswordEncoder().encode(cl.getPassword()),"cliente");
+//            return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"cliente");
+        }catch (ExceptionServiciosEasyCare e){
             try{
-//                Paseador ps = easyCareService.getPaseador(username);
-//                return userBuilder(ps.getCorreo(), ps.getPassword(), new BCryptPasswordEncoder().encode(ps.getPassword()),"paseador");
-                return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"paseador");
-            }catch (Exception ex){
+                Paseador ps = easyCareService.getPaseador(username);
+                return userBuilder(ps.getCorreo(), ps.getPassword(), new BCryptPasswordEncoder().encode(ps.getPassword()),"paseador");
+//                return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"paseador");
+            }catch (ExceptionServiciosEasyCare ex){
                 throw new UsernameNotFoundException("Usuario no valido");
             }
         }

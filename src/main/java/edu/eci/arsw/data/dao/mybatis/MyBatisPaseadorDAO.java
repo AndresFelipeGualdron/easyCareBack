@@ -26,6 +26,17 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
     }
 
     @Override
+    public Paseador getPaseador(String correo) throws PersistenceException {
+        try{
+            Paseador pa = paseador.getPaseadorCorreo(correo);
+            if(pa == null) throw new PersistenceException("no se ha podido encontrar al paseador");
+            return pa;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
+    @Override
     public List<Paseador> getPaseadores() throws PersistenceException {
         try{
             List<Paseador> ls = paseador.getPaseadores();

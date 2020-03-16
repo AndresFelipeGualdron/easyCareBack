@@ -3,6 +3,7 @@ package edu.eci.arsw.data.dao.mybatis.mappers;
 import edu.eci.arsw.easycare.model.Paseador;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public interface PaseadorMapper {
 
     @Select("SELECT * FROM paseador WHERE documento = #{documento} AND tipoDocumento = #{tDoc}")
     Paseador getPaseador(String documento, String tDoc);
+
+    @Select("SELECT * FROM paseador WHERE correo = #{correo}")
+    Paseador getPaseadorCorreo(@Param("correo") String correo);
 
     @Insert("")
     void save(Paseador paseador);

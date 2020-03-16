@@ -25,9 +25,6 @@ public class Seguridad extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 

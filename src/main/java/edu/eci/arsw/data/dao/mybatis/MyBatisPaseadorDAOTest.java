@@ -22,6 +22,12 @@ public class MyBatisPaseadorDAOTest extends MyBatisPaseadorDAO {
     }
 
     @Override
+    public Paseador getPaseador(String correo) throws PersistenceException{
+        super.setPaseador(paseador);
+        return super.getPaseador(correo);
+    }
+
+    @Override
     public List<Paseador> getPaseadores() throws PersistenceException {
         super.setPaseador(paseador);
         return super.getPaseadores();

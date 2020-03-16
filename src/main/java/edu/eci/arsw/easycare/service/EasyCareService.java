@@ -23,6 +23,8 @@ public interface EasyCareService {
 
     Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare;
 
+    Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare;
+
     List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare;
 
     void savePaseador(Paseador paseador) throws ExceptionServiciosEasyCare;
