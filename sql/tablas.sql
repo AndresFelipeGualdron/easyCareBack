@@ -232,10 +232,10 @@ ADD CONSTRAINT fk_subasta_cliente
    
 --CHECKS
 
-ALTER TABLE Cliente ADD CONSTRAINT Correo
+ALTER TABLE Cliente ADD CONSTRAINT CorreoCliente
 		CHECK (Cliente.correo LIKE '%@%.%');
 		
-ALTER TABLE Paseador ADD CONSTRAINT Correo
+ALTER TABLE Paseador ADD CONSTRAINT CorreoPaseador
 		CHECK (Paseador.correo LIKE '%@%.%');
 
 --SECUENCIAS
