@@ -151,12 +151,12 @@ ADD CONSTRAINT fk_cliente
     REFERENCES Cliente (documento, tipoDocumento);
 
 ALTER TABLE Mascota
-ADD CONSTRAINT fk_paseador
+ADD CONSTRAINT fk_paseador_mascota
     FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 
 ALTER TABLE Mascota
-ADD CONSTRAINT fk_paseo
+ADD CONSTRAINT fk_paseo_mascota
     FOREIGN KEY (idPaseoEnCurso)
     REFERENCES PaseoEnCurso (id);
 	
@@ -166,7 +166,7 @@ ADD CONSTRAINT fk_ruta
     REFERENCES Ruta (id);
 	
 ALTER TABLE Subasta
-ADD CONSTRAINT fk_paseo
+ADD CONSTRAINT fk_paseo_subasta
     FOREIGN KEY (idPaseo)
     REFERENCES Paseo (id);
 	
@@ -181,52 +181,52 @@ ADD CONSTRAINT fk_paseo
     REFERENCES Paseo (id);
 
 ALTER TABLE Cliente_Paseo
-ADD CONSTRAINT fk_cliente
+ADD CONSTRAINT fk_cliente_paseo
     FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Paseo
-ADD CONSTRAINT fk_paseo
+ADD CONSTRAINT fk_paseo_cliente
     FOREIGN KEY (idPaseo)
     REFERENCES Paseo (id);
 	
 ALTER TABLE Paseador_Subasta
-ADD CONSTRAINT fk_paseador
+ADD CONSTRAINT fk_paseador_subasta
     FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 	
 ALTER TABLE Paseador_Subasta
-ADD CONSTRAINT fk_subasta
+ADD CONSTRAINT fk_subasta_paseador
     FOREIGN KEY (idSubasta)
     REFERENCES Subasta (id);
 	
 ALTER TABLE Paseador_Paseo
-ADD CONSTRAINT fk_paseador
+ADD CONSTRAINT fk_paseador_paseo
     FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 	
 ALTER TABLE Paseador_Paseo
-ADD CONSTRAINT fk_paseo
+ADD CONSTRAINT fk_paseo_paseador
     FOREIGN KEY (idPaseo)
     REFERENCES Paseo (id);
 	
 ALTER TABLE Cliente_Ruta
-ADD CONSTRAINT fk_cliente
+ADD CONSTRAINT fk_cliente_ruta
     FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Ruta
-ADD CONSTRAINT fk_ruta
+ADD CONSTRAINT fk_ruta_cliente
     FOREIGN KEY (idRuta)
     REFERENCES Ruta (id);
 	
 ALTER TABLE Cliente_Subasta
-ADD CONSTRAINT fk_cliente
+ADD CONSTRAINT fk_cliente_subasta
     FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Subasta
-ADD CONSTRAINT fk_subasta
+ADD CONSTRAINT fk_subasta_cliente
     FOREIGN KEY (idSubasta)
     REFERENCES Subasta (id);
    
