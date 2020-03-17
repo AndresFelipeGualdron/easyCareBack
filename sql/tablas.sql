@@ -25,8 +25,10 @@ nombre VARCHAR(50) NOT NULL,
 raza VARCHAR(50) NOT NULL,
 edad INTEGER NOT NULL,
 genero VARCHAR(50) NOT NULL,
-idCliente VARCHAR(50) NOT NULL,
-idPaseador VARCHAR(50),
+docCliente VARCHAR(50) NOT NULL,
+tipoDocCliente VARCHAR(50) NOT NULL,
+docPaseador VARCHAR(50),
+tipoDocPaseador VARCHAR(50),
 idPaseoEnCurso INTEGER
 );
 
@@ -53,7 +55,8 @@ puntoLlegada VARCHAR(50) NOT NULL
 
 CREATE TABLE PaseoEnCurso(
 id INTEGER NOT NULL,
-idPaseador VARCHAR(50) NOT NULL,
+docPaseador VARCHAR(50) NOT NULL,
+tipoDocPaseador VARCHAR(50) NOT NULL,
 idPaseo INTEGER NOT NULL,
 latitudUbicacion INTEGER NOT NULL,
 longitudUbicacion INTEGER NOT NULL
@@ -65,27 +68,32 @@ longitud INTEGER NOT NULL
 );
 
 CREATE TABLE Cliente_Paseo(
-idCliente VARCHAR(50) NOT NULL,
+docCliente VARCHAR(50) NOT NULL,
+tipoDocCliente VARCHAR(50) NOT NULL,
 idPaseo INTEGER NOT NULL
 );
 
 CREATE TABLE Paseador_Subasta(
-idPaseador VARCHAR(50) NOT NULL,
+docPaseador VARCHAR(50) NOT NULL,
+tipoDocPaseador VARCHAR(50) NOT NULL,
 idSubasta INTEGER NOT NULL
 );
 
 CREATE TABLE Paseador_Paseo(
-idPaseador VARCHAR(50) NOT NULL,
+docPaseador VARCHAR(50) NOT NULL,
+tipoDocPaseador VARCHAR(50) NOT NULL,
 idPaseo INTEGER NOT NULL
 );
 
 CREATE TABLE Cliente_Ruta(
-idCliente VARCHAR(50) NOT NULL,
+docCliente VARCHAR(50) NOT NULL,
+tipoDocCliente VARCHAR(50) NOT NULL,
 idRuta INTEGER NOT NULL
 );
 
 CREATE TABLE Cliente_Subasta(
-idCliente VARCHAR(50) NOT NULL,
+docCliente VARCHAR(50) NOT NULL,
+tipoDocCliente VARCHAR(50) NOT NULL,
 idSubasta INTEGER NOT NULL
 );
 
@@ -116,19 +124,19 @@ ALTER TABLE PaseoEnCurso
    ADD CONSTRAINT PK_PaseoEnCurso PRIMARY KEY (id);
 
 ALTER TABLE Cliente_Paseo 
-   ADD CONSTRAINT PK_Cliente_Paseo PRIMARY KEY (idCliente, idPaseo);
+   ADD CONSTRAINT PK_Cliente_Paseo PRIMARY KEY (docCliente, tipoDocCliente, idPaseo);
 
 ALTER TABLE Paseador_Subasta 
-   ADD CONSTRAINT PK_Paseador_Subasta PRIMARY KEY (idPaseador, idSubasta);
+   ADD CONSTRAINT PK_Paseador_Subasta PRIMARY KEY (docPaseador, tipoDocPaseador, idSubasta);
 
 ALTER TABLE Cliente_Ruta 
-   ADD CONSTRAINT PK_Cliente_Ruta PRIMARY KEY (idCliente, idRuta);
+   ADD CONSTRAINT PK_Cliente_Ruta PRIMARY KEY (docCliente, tipoDocCliente, idRuta);
 
 ALTER TABLE Cliente_Subasta 
-   ADD CONSTRAINT PK_Cliente_Subasta PRIMARY KEY (idCliente, idSubasta);
+   ADD CONSTRAINT PK_Cliente_Subasta PRIMARY KEY (docCliente, tipoDocCliente, idSubasta);
    
 ALTER TABLE Paseador_Paseo 
-   ADD CONSTRAINT PK_Paseador_Paseo PRIMARY KEY (idPaseador, idPaseo);
+   ADD CONSTRAINT PK_Paseador_Paseo PRIMARY KEY (docPaseador, tipoDocPaseador, idPaseo);
    
 --FORANEAS
 
@@ -139,12 +147,12 @@ ADD CONSTRAINT fk_paseoencurso
 
 ALTER TABLE Mascota
 ADD CONSTRAINT fk_cliente
-    FOREIGN KEY (idCliente)
+    FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 
 ALTER TABLE Mascota
 ADD CONSTRAINT fk_paseador
-    FOREIGN KEY (idPaseador)
+    FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 
 ALTER TABLE Mascota
@@ -164,7 +172,7 @@ ADD CONSTRAINT fk_paseo
 	
 ALTER TABLE PaseoEnCurso
 ADD CONSTRAINT fk_paseador
-    FOREIGN KEY (idPaseador)
+    FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 
 ALTER TABLE PaseoEnCurso
@@ -174,7 +182,7 @@ ADD CONSTRAINT fk_paseo
 
 ALTER TABLE Cliente_Paseo
 ADD CONSTRAINT fk_cliente
-    FOREIGN KEY (idCliente)
+    FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Paseo
@@ -184,7 +192,7 @@ ADD CONSTRAINT fk_paseo
 	
 ALTER TABLE Paseador_Subasta
 ADD CONSTRAINT fk_paseador
-    FOREIGN KEY (idPaseador)
+    FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 	
 ALTER TABLE Paseador_Subasta
@@ -194,7 +202,7 @@ ADD CONSTRAINT fk_subasta
 	
 ALTER TABLE Paseador_Paseo
 ADD CONSTRAINT fk_paseador
-    FOREIGN KEY (idPaseador)
+    FOREIGN KEY (docPaseador, tipoDocPaseador)
     REFERENCES Paseador (documento, tipoDocumento);
 	
 ALTER TABLE Paseador_Paseo
@@ -204,7 +212,7 @@ ADD CONSTRAINT fk_paseo
 	
 ALTER TABLE Cliente_Ruta
 ADD CONSTRAINT fk_cliente
-    FOREIGN KEY (idCliente)
+    FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Ruta
@@ -214,7 +222,7 @@ ADD CONSTRAINT fk_ruta
 	
 ALTER TABLE Cliente_Subasta
 ADD CONSTRAINT fk_cliente
-    FOREIGN KEY (idCliente)
+    FOREIGN KEY (docCliente, tipoDocCliente)
     REFERENCES Cliente (documento, tipoDocumento);
 	
 ALTER TABLE Cliente_Subasta
