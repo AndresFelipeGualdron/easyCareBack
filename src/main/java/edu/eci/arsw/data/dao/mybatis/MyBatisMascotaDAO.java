@@ -18,7 +18,6 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     public Mascota getMascota(Long id) throws PersistenceException {
         try{
             Mascota ma = mascota.getMascota(id);
-            if(ma == null) throw new PersistenceException("No se pudo encontrar la mascota");
             return ma;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -30,7 +29,6 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     public List<Mascota> getMascotas() throws PersistenceException {
         try{
             List<Mascota> ls = mascota.getMascotas();
-            if (ls.size() == 0) throw new PersistenceException("no hay mascotas registradas");
             return ls;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);

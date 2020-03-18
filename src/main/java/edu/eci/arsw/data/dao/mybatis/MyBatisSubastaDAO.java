@@ -18,7 +18,6 @@ public class MyBatisSubastaDAO implements SubastaDAO {
     public Subasta getSubasta(Long id) throws PersistenceException {
         try{
             Subasta su = subasta.getSubasta(id);
-            if(su == null) throw new PersistenceException("no se pudo encontrar la subasta");
             return su;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -29,7 +28,6 @@ public class MyBatisSubastaDAO implements SubastaDAO {
     public List<Subasta> getSubastas() throws PersistenceException {
         try {
             List<Subasta> ls = subasta.getSubastas();
-            if(ls.size()==0) throw new PersistenceException("no hay subastas registradas");
             return ls;
         }catch (Exception E){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);

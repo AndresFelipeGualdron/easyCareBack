@@ -18,7 +18,6 @@ public class MyBatisPaseoDAO implements PaseoDAO {
     public Paseo getPaseo(Long id) throws PersistenceException {
         try{
             Paseo pa = paseo.getPaseo(id);
-            if(pa == null) throw new PersistenceException("no se ha podido encontrar el paseo");
             return pa;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -29,7 +28,6 @@ public class MyBatisPaseoDAO implements PaseoDAO {
     public List<Paseo> getPaseos() throws PersistenceException {
         try{
             List<Paseo> ls = paseo.getPaseos();
-            if(ls.size() == 0) throw new PersistenceException("no hay paseos registrados");
             return ls;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);

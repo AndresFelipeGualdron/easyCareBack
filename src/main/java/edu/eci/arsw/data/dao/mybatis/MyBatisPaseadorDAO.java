@@ -18,7 +18,6 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
     public Paseador getPaseador(String documento, String tdoc) throws PersistenceException {
         try{
             Paseador pa = paseador.getPaseador(documento,tdoc);
-            if(pa == null) throw new PersistenceException("no se ha podido encontrar al paseador");
             return pa;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -29,7 +28,6 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
     public Paseador getPaseador(String correo) throws PersistenceException {
         try{
             Paseador pa = paseador.getPaseadorCorreo(correo);
-            if(pa == null) throw new PersistenceException("no se ha podido encontrar al paseador");
             return pa;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -40,7 +38,6 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
     public List<Paseador> getPaseadores() throws PersistenceException {
         try{
             List<Paseador> ls = paseador.getPaseadores();
-            if(ls.size() == 0) throw new PersistenceException("no hay paseadores registrados");
             return ls;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);

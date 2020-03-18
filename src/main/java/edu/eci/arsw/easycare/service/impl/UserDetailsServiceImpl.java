@@ -32,17 +32,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try{
+            System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQ");
             Cliente cl = easyCareService.getCliente(username);
-            return userBuilder(cl.getCorreo(), cl.getPassword(), new BCryptPasswordEncoder().encode(cl.getPassword()),"cliente");
-//            return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"cliente");
-        }catch (ExceptionServiciosEasyCare e){
-            try{
-                Paseador ps = easyCareService.getPaseador(username);
-                return userBuilder(ps.getCorreo(), ps.getPassword(), new BCryptPasswordEncoder().encode(ps.getPassword()),"paseador");
-//                return userBuilder("correo", "password", new BCryptPasswordEncoder().encode("password"),"paseador");
-            }catch (ExceptionServiciosEasyCare ex){
-                throw new UsernameNotFoundException("Usuario no valido");
+            Paseador ps = easyCareService.getPaseador(username);
+            if(cl != null){
+                System.out.println(userBuilder(cl.getCorreo(), cl.getPassword(), new BCryptPasswordEncoder().encode(cl.getPassword()),"cliente").getPassword() +" &&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                return userBuilder(cl.getCorreo(), cl.getPassword(), new BCryptPasswordEncoder().encode(cl.getPassword()),"cliente");
             }
+            else if(ps != null){
+                return userBuilder(ps.getCorreo(), ps.getPassword(), new BCryptPasswordEncoder().encode(ps.getPassword()),"paseador");
+            }
+            throw new UsernameNotFoundException("Usuario no valido");
+        }catch (ExceptionServiciosEasyCare e){
+            System.out.println("malllllllllllllllll");
+            throw new UsernameNotFoundException("Usuario no valido");
         }
 
     }

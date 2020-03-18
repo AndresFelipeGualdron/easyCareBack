@@ -1,29 +1,34 @@
 package edu.eci.arsw.easycare.Controller;
 
-import edu.eci.arsw.data.dao.mybatis.PersistenceException;
+import edu.eci.arsw.easycare.model.Cliente;
+import edu.eci.arsw.easycare.model.Paseador;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
+import edu.eci.arsw.easycare.service.impl.JwtService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 @Api(value = "servicio Easy Care")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
 public class EasyCareController {
 
     @Autowired
     private final EasyCareService easyCareService;
 
-    public EasyCareController(EasyCareService easyCareService) {
+    @Autowired
+    private final JwtService jwtService;
+
+    public EasyCareController(EasyCareService easyCareService, JwtService jwtService) {
         this.easyCareService = easyCareService;
+        this.jwtService = jwtService;
     }
 
 
@@ -134,4 +139,35 @@ public class EasyCareController {
             return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/clients/login/{correo}/{password}")
+    public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
+        System.out.println(correo+" "+password+" ______------------");
+        try{
+            Cliente cl = easyCareService.getCliente(correo);
+            Paseador ps = easyCareService.getPaseador(correo);
+            if(cl!=null && cl.getPassword().equals(password)){
+                List<String> roles = new ArrayList<>();
+                roles.add("cliente");
+//                return jwtService.createToken(correo,roles);
+                String tk = jwtService.createToken(correo,roles);
+                System.out.println(tk);
+                return new ResponseEntity<>(tk, HttpStatus.OK);
+            }
+            else if(ps != null && ps.getPassword().equals(password)){
+                List<String> roles = new ArrayList<>();
+                roles.add("paseador");
+//                return jwtService.createToken(correo,roles);
+                return new ResponseEntity<>(jwtService.createToken(correo,roles), HttpStatus.ACCEPTED);
+            }
+            else{
+//                return "rechazo";
+                return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }catch (ExceptionServiciosEasyCare e){
+//            return "rechazo";
+            return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

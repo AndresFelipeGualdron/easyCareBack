@@ -20,7 +20,6 @@ public class MyBatisClienteDAO implements ClienteDAO {
     public List<Cliente> getClientes() throws PersistenceException{
         try{
             List<Cliente> li = cliente.getClientes();
-            if (li.size() == 0) throw new PersistenceException("No hay clientes agregados");
             return li;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -32,7 +31,6 @@ public class MyBatisClienteDAO implements ClienteDAO {
     public Cliente getCliente(String documento, String tdoc) throws PersistenceException{
         try {
             Cliente cli = cliente.getCliente(documento, tdoc);
-            if(cli == null) throw new PersistenceException("No se encontro el cliente");
             return cli;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
@@ -44,7 +42,6 @@ public class MyBatisClienteDAO implements ClienteDAO {
     public Cliente getCliente(String correo) throws PersistenceException {
         try{
             Cliente cli = this.cliente.getClienteCorreo(correo);
-            if(cli == null) throw new PersistenceException("No se encontro el cliente");
             return cli;
         }catch (Exception e){
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
