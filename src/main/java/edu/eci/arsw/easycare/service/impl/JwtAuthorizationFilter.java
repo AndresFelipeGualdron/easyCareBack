@@ -31,26 +31,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Autowired
     private JwtService jwtService;
 
-//    @Autowired
-//    private final EasyCareService easyCareService;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager){
         super(authenticationManager);
     }
 
 
-//    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, EasyCareService easyCareService){
-//        super(authenticationManager);
-//        this.easyCareService = easyCareService;
-//    }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         String authHeader = request.getHeader(AUTHORIZATION);
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         if (jwtService.isBearer(authHeader)) {
-            System.out.println("################");
             LogManager.getLogger(this.getClass().getName()).debug(">>> FILTER JWT...");
             List<GrantedAuthority> authorities = jwtService.roles(authHeader).stream()
                     .map(SimpleGrantedAuthority::new).collect(Collectors.toList());

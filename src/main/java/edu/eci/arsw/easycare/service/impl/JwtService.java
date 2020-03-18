@@ -36,7 +36,7 @@ public class JwtService {
     }
 
     public boolean isBearer(String authorization) {
-        System.out.println(authorization);
+        System.out.println(authorization + " SISAS");
 //        if(authorization != null) System.out.println(authorization.startsWith(BEARER));
         return authorization != null && authorization.startsWith(BEARER) && authorization.split("\\.").length == 3;
     }

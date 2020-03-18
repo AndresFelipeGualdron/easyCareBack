@@ -142,14 +142,12 @@ public class EasyCareController {
 
     @PostMapping("/clients/login/{correo}/{password}")
     public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
-        System.out.println(correo+" "+password+" ______------------");
         try{
             Cliente cl = easyCareService.getCliente(correo);
             Paseador ps = easyCareService.getPaseador(correo);
             if(cl!=null && cl.getPassword().equals(password)){
                 List<String> roles = new ArrayList<>();
                 roles.add("cliente");
-//                return jwtService.createToken(correo,roles);
                 String tk = jwtService.createToken(correo,roles);
                 System.out.println(tk);
                 return new ResponseEntity<>(tk, HttpStatus.OK);
@@ -157,17 +155,21 @@ public class EasyCareController {
             else if(ps != null && ps.getPassword().equals(password)){
                 List<String> roles = new ArrayList<>();
                 roles.add("paseador");
-//                return jwtService.createToken(correo,roles);
                 return new ResponseEntity<>(jwtService.createToken(correo,roles), HttpStatus.ACCEPTED);
             }
             else{
-//                return "rechazo";
                 return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }catch (ExceptionServiciosEasyCare e){
-//            return "rechazo";
             return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/clients/login/validate")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token){
+        System.out.println(token + " Este es el token que llega");
+        if(jwtService.user(token).length() >= 0) return new ResponseEntity<>("ok", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("mal", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
     }
 
 }
