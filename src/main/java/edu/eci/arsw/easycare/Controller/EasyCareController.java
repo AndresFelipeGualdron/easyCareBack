@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
+@RequestMapping("/clients")
 @Api(value = "servicio Easy Care")
 public class EasyCareController {
 
@@ -33,12 +34,12 @@ public class EasyCareController {
 
 
 
-    @GetMapping("")
-    public String holaMundo(Model model){
-        return "hola";
-    }
+//    @GetMapping("")
+//    public String holaMundo(Model model){
+//        return "hola";
+//    }
 
-    @GetMapping("/clients")
+    @GetMapping("")
     @ApiOperation(value = "Obtener todos los clientes",notes = "retorna todos los clientes")
     public ResponseEntity<?> getClientes(){
         try {
@@ -49,7 +50,7 @@ public class EasyCareController {
         }
     }
 
-    @GetMapping("/clients/{documento}/{tdoc}")
+    @GetMapping("/{documento}/{tdoc}")
     @ApiOperation(value = "Encuentra un cliente",notes = "devuelve un solo cliente por documento y tipo de documento")
     public ResponseEntity<?> getClienteByDocument(@PathVariable String documento, @PathVariable String tdoc){
         try{
@@ -100,26 +101,6 @@ public class EasyCareController {
         }
     }
 
-    @GetMapping("/paseadores")
-    @ApiOperation(value = "Obtiene todos los paseadores",notes = "Devuelve todos los paseadores")
-    public ResponseEntity<?> getPaseadores(){
-        try {
-            return new ResponseEntity<>(easyCareService.getPaseadores(),HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe registro de paseadores", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/paseadores/{documento}/{tdoc}")
-    @ApiOperation(value = "Obtiene un paseador",notes = "Devuelve un paseador por documento y tipo de documento")
-    public ResponseEntity<?> getPaseador(@PathVariable String documento, @PathVariable String tdoc){
-        try {
-            return new ResponseEntity<>(easyCareService.getPaseador(documento,tdoc), HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.NOT_FOUND);
-        }
-    }
-
     @GetMapping("/subastas")
     @ApiOperation(value = "Obtine todas las subastas",notes = "Devuelve todas las subastas")
     public ResponseEntity<?> getSubastas(){
@@ -140,7 +121,7 @@ public class EasyCareController {
         }
     }
 
-    @PostMapping("/clients/login/{correo}/{password}")
+    @PostMapping("/login/{correo}/{password}")
     public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
         try{
             Cliente cl = easyCareService.getCliente(correo);
@@ -165,7 +146,7 @@ public class EasyCareController {
         }
     }
 
-    @PostMapping("/clients/login/validate")
+    @PostMapping("/login/validate")
     public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token){
         System.out.println(token + " Este es el token que llega");
         if(jwtService.user(token).length() >= 0) return new ResponseEntity<>("ok", HttpStatus.ACCEPTED);

@@ -1,1 +1,2 @@
-INSERT INTO Cliente VALUES (1015476135, 'cedula', 'Andres Gualdron', 'gualdronsito@hotmail.com', 3016168647);
+INSERT INTO Cliente (documento , tipodocumento ,nombre ,correo ,telefono ,"password" ) VALUES (1015476135, 'cedula', 'Andres Gualdron', 'gualdronsito@hotmail.com', 3016168647, 'papimami12');
+INSERT INTO Paseador (documento , tipodocumento ,nombre ,correo ,telefono ,"password" ) VALUES (1015476135, 'cedula', 'Andres Gualdron', 'gualdronsito@hotmail.com', 3016168647, 'papimami12');
