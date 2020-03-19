@@ -16,6 +16,7 @@ nombre VARCHAR(100) NOT NULL,
 correo VARCHAR(50) NOT NULL,
 telefono VARCHAR(70) NOT NULL,
 password VARCHAR(200) NOT NULL,
+calificacion INTEGER NOT NULL,
 idPaseoEnCurso INTEGER
 );
 
