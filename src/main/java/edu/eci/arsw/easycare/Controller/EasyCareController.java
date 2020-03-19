@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/clients")
-@Api(value = "servicio Easy Care")
+@Api(value = "servicio Clientes")
 public class EasyCareController {
 
     @Autowired
@@ -58,66 +57,6 @@ public class EasyCareController {
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("No existe el cliente solicitado", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/mascotas")
-    @ApiOperation(value = "Obtiene todas las mascotas",notes = "devuelve todas las mascotas")
-    public ResponseEntity<?> getMascotas(){
-        try {
-            return new ResponseEntity<>(easyCareService.getMascotas(),HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No se encontraron mascotas", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/mascotas/{id}")
-    @ApiOperation(value = "encuentra una mascota",notes = "devuelve una mascota por id")
-    public ResponseEntity<?> getMascota(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(easyCareService.getMascota(id),HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No se encontró la mascota requerida",HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/paseos")
-    @ApiOperation(value = "Obtiene todos los paseos",notes = "devuelve todos los paseos")
-    public ResponseEntity<?> getPaseos(){
-        try {
-            return new ResponseEntity<>(easyCareService.getPaseos(),HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe registro de paseos", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/paseos/{id}")
-    @ApiOperation(value = "Encuentra un paseo",notes = "devuelve un paseo por id")
-    public ResponseEntity<?> getPaseo(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(easyCareService.getPaseo(id), HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("El paseo solicitado no existe", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/subastas")
-    @ApiOperation(value = "Obtine todas las subastas",notes = "Devuelve todas las subastas")
-    public ResponseEntity<?> getSubastas(){
-        try {
-            return new ResponseEntity<>(easyCareService.getSubastas(),HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe registro de subastas", HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/subastas/{id}")
-    @ApiOperation(value = "Encuentra una subasta",notes = "Devuelve una subasta por id")
-    public ResponseEntity<?> getSubasta(@PathVariable Long id){
-        try {
-            return new ResponseEntity<>(easyCareService.getSubasta(id), HttpStatus.ACCEPTED);
-        }catch (Exception e){
-            return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.NOT_FOUND);
         }
     }
 
