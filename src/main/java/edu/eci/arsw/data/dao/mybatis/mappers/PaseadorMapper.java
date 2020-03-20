@@ -24,5 +24,5 @@ public interface PaseadorMapper {
     Paseador getPaseadorCorreo(@Param("correo") String correo);
 
     @Insert("INSERT INTO paseador (documento , tipodocumento ,nombre ,correo ,telefono ,password ) VALUES (#{paseador.documento}, #{paseador.tipoDocumento}, #{paseador.nombre}, #{paseador.correo}, #{paseador.telefono}, #{paseador.password})")
-    void save(Paseador paseador);
+    void save(@Param("paseador") Paseador paseador);
 }
