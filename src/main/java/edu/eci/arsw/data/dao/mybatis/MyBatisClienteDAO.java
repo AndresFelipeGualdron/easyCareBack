@@ -51,8 +51,10 @@ public class MyBatisClienteDAO implements ClienteDAO {
     @Override
     public void save(Cliente cliente) throws PersistenceException{
         try{
+
             this.cliente.save(cliente);
         }catch (Exception e){
+            e.printStackTrace();
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
         }
 

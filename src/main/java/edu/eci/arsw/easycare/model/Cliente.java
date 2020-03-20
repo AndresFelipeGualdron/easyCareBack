@@ -45,6 +45,8 @@ public class Cliente implements Serializable{
 
     private String password;
 
+
+
     public Cliente(){
 
     }

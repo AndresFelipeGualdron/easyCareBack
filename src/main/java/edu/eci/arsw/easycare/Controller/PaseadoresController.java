@@ -43,6 +43,16 @@ public class PaseadoresController {
         }
     }
 
+    @GetMapping("/sort/{tipo}")
+    @ApiOperation(value = "Obtiene todos los paseadores en un orden específico",notes = "Devuelve todos los paseadores en un orden específico")
+    public ResponseEntity<?> getPaseadoresSort(@PathVariable("tipo") String tipo){
+        try{
+            return new ResponseEntity<>(easyCareService.getPaseadoresOrder(tipo), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("No existe registro de paseadores", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{documento}/{tdoc}")
     @ApiOperation(value = "Obtiene un paseador",notes = "Devuelve un paseador por documento y tipo de documento")
     public ResponseEntity<?> getPaseador(@PathVariable String documento, @PathVariable String tdoc){
@@ -84,5 +94,27 @@ public class PaseadoresController {
         System.out.println(token + " Este es el token que llega");
         if(jwtService.user(token).length() >= 0) return new ResponseEntity<>("ok", HttpStatus.ACCEPTED);
         return new ResponseEntity<>("mal", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+    }
+
+    @PostMapping("/register/{correo}/{password}/{nombre}/{cedula}/{telefono}")
+    public ResponseEntity<?> restrar(@PathVariable String correo, @PathVariable String password, @PathVariable String nombre, @PathVariable String cedula, @PathVariable String telefono) {
+        try {
+            System.out.println("yaaaaaaaaaaaaaaaaaaaaaaaaa");
+            Paseador paseador = new Paseador();
+            paseador.setCorreo(correo);
+            paseador.setPassword(password);
+            paseador.setNombre(nombre);
+            paseador.setTipoDocumento("cedula");
+            paseador.setDocumento(cedula);
+            paseador.setTelefono(telefono);
+            easyCareService.savePaseador(paseador);
+            List<String> roles = new ArrayList<>();
+            roles.add("cliente");
+            String tok = jwtService.createToken(paseador.getCorreo(), roles);
+            return new ResponseEntity<>(tok, HttpStatus.ACCEPTED);
+        } catch (ExceptionServiciosEasyCare e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

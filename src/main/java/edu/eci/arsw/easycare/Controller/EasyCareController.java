@@ -92,4 +92,26 @@ public class EasyCareController {
         return new ResponseEntity<>("mal", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
     }
 
+    @PostMapping("/register/{correo}/{password}/{nombre}/{cedula}/{telefono}")
+    public ResponseEntity<?> restrar(@PathVariable String correo, @PathVariable String password, @PathVariable String nombre, @PathVariable String cedula, @PathVariable String telefono){
+        try{
+            System.out.println("yaaaaaaaaaaaaaaaaaaaaaaaaa");
+            Cliente cliente = new Cliente();
+            cliente.setCorreo(correo);
+            cliente.setPassword(password);
+            cliente.setNombre(nombre);
+            cliente.setTipoDocumento("cedula");
+            cliente.setDocumento(cedula);
+            cliente.setTelefono(telefono);
+            easyCareService.saveCliente(cliente);
+            List<String> roles = new ArrayList<>();
+            roles.add("cliente");
+            String tok = jwtService.createToken(cliente.getCorreo(), roles);
+            return new ResponseEntity<>(tok, HttpStatus.ACCEPTED);
+        }catch (ExceptionServiciosEasyCare e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

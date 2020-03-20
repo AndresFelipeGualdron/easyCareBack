@@ -45,6 +45,16 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
     }
 
     @Override
+    public List<Paseador> getPaseadores(String order) throws PersistenceException {
+        try{
+            List<Paseador> ls = paseador.getPaseadoresOrder(order);
+            return ls;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
+    @Override
     public void save(Paseador paseador) throws PersistenceException {
         try{
             this.paseador.save(paseador);

@@ -51,4 +51,95 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
         super.setCliente(cliente);
         return super.getAllClintes();
     }
+
+    @Override
+    public void saveCliente(Cliente cliente) throws ExceptionServiciosEasyCare {
+        super.setCliente(this.cliente);
+        super.saveCliente(cliente);
+    }
+
+
+    @Override
+    public Mascota getMascota(Long id) throws ExceptionServiciosEasyCare {
+        super.setMascota(this.mascota);
+        return super.getMascota(id);
+    }
+
+    @Override
+    public List<Mascota> getMascotas() throws ExceptionServiciosEasyCare {
+        super.setMascota(this.mascota);
+        return super.getMascotas();
+    }
+
+    @Override
+    public void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
+        super.setMascota(this.mascota);
+        super.saveMascota(mascota);
+    }
+
+    @Override
+    public Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        return this.getPaseador(documento, tdoc);
+    }
+
+    @Override
+    public Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        return super.getPaseador(correo);
+    }
+
+    @Override
+    public List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        return super.getPaseadores();
+    }
+
+    @Override
+    public List<Paseador> getPaseadoresOrder(String order) throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        return super.getPaseadoresOrder(order);
+    }
+
+    @Override
+    public void savePaseador(Paseador paseador) throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        super.savePaseador(paseador);
+    }
+
+    @Override
+    public Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare {
+        super.setPaseo(this.paseo);
+        return super.getPaseo(id);
+    }
+
+    @Override
+    public List<Paseo> getPaseos() throws ExceptionServiciosEasyCare {
+        super.setPaseo(this.paseo);
+        return super.getPaseos();
+    }
+
+    @Override
+    public void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare {
+        super.setPaseo(this.paseo);
+        super.savePaseo(paseo);
+    }
+
+    @Override
+    public Subasta getSubasta(Long id) throws ExceptionServiciosEasyCare {
+        super.setSubasta(this.subasta);
+        return super.getSubasta(id);
+    }
+
+    @Override
+    public List<Subasta> getSubastas() throws ExceptionServiciosEasyCare {
+        super.setSubasta(this.subasta);
+        return super.getSubastas();
+    }
+
+    @Override
+    public void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+        super.setSubasta(this.subasta);
+        super.saveSubasta(subasta);
+    }
 }

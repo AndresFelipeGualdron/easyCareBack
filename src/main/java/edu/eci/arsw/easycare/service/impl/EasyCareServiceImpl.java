@@ -65,6 +65,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
         try {
             this.cliente.save(cliente);
         } catch (PersistenceException e) {
+            e.printStackTrace();
             throw new ExceptionServiciosEasyCare("No se ha podido completar la operación",e);
         }
     }
@@ -119,6 +120,15 @@ public class EasyCareServiceImpl implements  EasyCareService{
         try {
             return this.paseador.getPaseadores();
         } catch (PersistenceException e) {
+            throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
+        }
+    }
+
+    @Override
+    public List<Paseador> getPaseadoresOrder(String order) throws ExceptionServiciosEasyCare {
+        try{
+            return this.paseador.getPaseadores(order);
+        }catch (PersistenceException e){
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
         }
     }

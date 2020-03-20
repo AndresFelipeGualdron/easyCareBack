@@ -27,6 +27,8 @@ public interface EasyCareService {
 
     List<Paseador> getPaseadores() throws ExceptionServiciosEasyCare;
 
+    List<Paseador> getPaseadoresOrder(String order) throws ExceptionServiciosEasyCare;
+
     void savePaseador(Paseador paseador) throws ExceptionServiciosEasyCare;
 
     Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare;

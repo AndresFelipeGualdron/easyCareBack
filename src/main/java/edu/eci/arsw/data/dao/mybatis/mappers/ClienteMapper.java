@@ -21,7 +21,7 @@ public interface ClienteMapper {
     @Select("SELECT * FROM cliente WHERE correo = #{correo}")
     Cliente getClienteCorreo(@Param("correo") String correo);
 
-    @Insert("")
+    @Insert("INSERT INTO cliente (documento , tipodocumento ,nombre ,correo ,telefono ,password ) VALUES (#{cliente.documento}, #{cliente.tipoDocumento}, #{cliente.nombre}, #{cliente.correo}, #{cliente.telefono}, #{cliente.password})")
     void save(@Param("cliente") Cliente cliente);
 
 }

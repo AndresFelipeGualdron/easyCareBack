@@ -23,6 +23,9 @@ public class Paseador {
     @NotNull
     @ApiModelProperty(value = "telefono del paseador", required = true)
     private String telefono;
+    @NotNull
+    @ApiModelProperty(value = "Clificación del paseador", required = true)
+    private Long calificacion;
 
     @NotNull
     @ApiModelProperty(value = "Los paseos que ha ofertado el paseador", required = true)
@@ -123,6 +126,14 @@ public class Paseador {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getCalificacion(){
+        return this.calificacion;
+    }
+
+    public void setCalificacion(Long calificacion){
+        this.calificacion = calificacion;
     }
 
 

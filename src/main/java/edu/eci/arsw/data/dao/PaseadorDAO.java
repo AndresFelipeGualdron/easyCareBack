@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface PaseadorDAO {
 
-    public Paseador getPaseador(String documento, String tdoc) throws PersistenceException;
+    Paseador getPaseador(String documento, String tdoc) throws PersistenceException;
 
-    public Paseador getPaseador(String correo) throws PersistenceException;
+    Paseador getPaseador(String correo) throws PersistenceException;
 
-    public List<Paseador> getPaseadores() throws PersistenceException;
+    List<Paseador> getPaseadores() throws PersistenceException;
 
-    public void save(Paseador paseador) throws PersistenceException;
+    List<Paseador> getPaseadores(String order) throws PersistenceException;
+
+    void save(Paseador paseador) throws PersistenceException;
 }
