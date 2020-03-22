@@ -23,6 +23,6 @@ public interface PaseadorMapper {
     @Select("SELECT * FROM paseador WHERE correo = #{correo}")
     Paseador getPaseadorCorreo(@Param("correo") String correo);
 
-    @Insert("INSERT INTO paseador (documento , tipodocumento ,nombre ,correo ,telefono ,password ) VALUES (#{paseador.documento}, #{paseador.tipoDocumento}, #{paseador.nombre}, #{paseador.correo}, #{paseador.telefono}, #{paseador.password})")
+    @Insert("INSERT INTO paseador (documento , tipodocumento ,nombre ,correo ,telefono ,password, calificacion ) VALUES (#{paseador.documento}, #{paseador.tipoDocumento}, #{paseador.nombre}, #{paseador.correo}, #{paseador.telefono}, #{paseador.password}, #{paseador.calificacion})")
     void save(@Param("paseador") Paseador paseador);
 }

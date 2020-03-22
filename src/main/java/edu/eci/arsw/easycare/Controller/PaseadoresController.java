@@ -97,7 +97,7 @@ public class PaseadoresController {
     }
 
     @PostMapping("/register/{correo}/{password}/{nombre}/{cedula}/{telefono}")
-    public ResponseEntity<?> restrar(@PathVariable String correo, @PathVariable String password, @PathVariable String nombre, @PathVariable String cedula, @PathVariable String telefono) {
+    public ResponseEntity<?> registrar(@PathVariable String correo, @PathVariable String password, @PathVariable String nombre, @PathVariable String cedula, @PathVariable String telefono) {
         try {
             System.out.println("yaaaaaaaaaaaaaaaaaaaaaaaaa");
             Paseador paseador = new Paseador();
@@ -107,6 +107,7 @@ public class PaseadoresController {
             paseador.setTipoDocumento("cedula");
             paseador.setDocumento(cedula);
             paseador.setTelefono(telefono);
+            paseador.setCalificacion(Long.valueOf(0));
             easyCareService.savePaseador(paseador);
             List<String> roles = new ArrayList<>();
             roles.add("cliente");
