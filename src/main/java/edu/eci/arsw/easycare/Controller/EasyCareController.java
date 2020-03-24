@@ -75,6 +75,21 @@ public class EasyCareController {
         }
     }
 
+    @GetMapping("/cliente/correo")
+    @ApiOperation(value = "Encuentra la información del cliente mediante el correo",notes = "Devuelve el cliente requerido")
+    public ResponseEntity<?> getClienteByCorreo(@RequestHeader("Authorization")  String token){
+        try{
+            String correo = jwtService.user(token);
+            if(correo.length() > 0){
+                return new ResponseEntity<>(easyCareService.getCliente(correo), HttpStatus.ACCEPTED);
+            }else{
+                return new ResponseEntity<>("Error", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            }
+        }catch(Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/login/{correo}/{password}")
     public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
         try{
