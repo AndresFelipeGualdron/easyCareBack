@@ -15,7 +15,7 @@ public interface EasyCareService {
 
     void saveCliente(Cliente cliente) throws ExceptionServiciosEasyCare;
 
-    Mascota getMascota(Long id) throws ExceptionServiciosEasyCare;
+    Mascota getMascota(int id) throws ExceptionServiciosEasyCare;
 
     List<Mascota> getMascotas() throws ExceptionServiciosEasyCare;
 
@@ -33,13 +33,13 @@ public interface EasyCareService {
 
     void savePaseador(Paseador paseador) throws ExceptionServiciosEasyCare;
 
-    Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare;
+    Paseo getPaseo(int id) throws ExceptionServiciosEasyCare;
 
     List<Paseo> getPaseos() throws ExceptionServiciosEasyCare;
 
     void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare;
 
-    Subasta getSubasta(Long id) throws ExceptionServiciosEasyCare;
+    Subasta getSubasta(int id) throws ExceptionServiciosEasyCare;
 
     List<Subasta> getSubastas() throws ExceptionServiciosEasyCare;
 

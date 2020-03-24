@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MascotaDAO {
 
-    Mascota getMascota(Long id) throws PersistenceException;
+    Mascota getMascota(int id) throws PersistenceException;
 
     List<Mascota> getMascotas() throws PersistenceException;
 

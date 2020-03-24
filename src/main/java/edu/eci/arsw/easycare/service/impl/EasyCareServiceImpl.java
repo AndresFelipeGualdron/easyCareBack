@@ -71,7 +71,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public Mascota getMascota(Long id) throws ExceptionServiciosEasyCare {
+    public Mascota getMascota(int id) throws ExceptionServiciosEasyCare {
         try {
             return this.mascota.getMascota(id);
         } catch (PersistenceException e) {
@@ -153,7 +153,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare {
+    public Paseo getPaseo(int id) throws ExceptionServiciosEasyCare {
         try {
             return this.paseo.getPaseo(id);
         } catch (PersistenceException e) {
@@ -180,7 +180,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public Subasta getSubasta(Long id) throws ExceptionServiciosEasyCare {
+    public Subasta getSubasta(int id) throws ExceptionServiciosEasyCare {
         try {
             return this.subasta.getSubasta(id);
         } catch (PersistenceException e) {

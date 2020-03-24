@@ -19,7 +19,7 @@ public interface MascotaMapper {
     List<Mascota> getMascotasCliente(@Param("documento") String documento, @Param("tipoDocumento") String tipoDocumento);
 
     @Select("SELECT * FROM mascota WHERE id = #{id}")
-    Mascota getMascota(@Param("id") Long id);
+    Mascota getMascota(@Param("id") int id);
 
     @Insert("")
     void save(@Param("mascota") Mascota mascota);

@@ -12,7 +12,7 @@ public class Mascota implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "Id de la mascota", required = true)
-    private Long id;
+    private int id;
     @NotNull
     @ApiModelProperty(value = "Nombre de la mascota", required = true)
     private String nombre;
@@ -28,5 +28,46 @@ public class Mascota implements Serializable {
 
     public Mascota(){
 
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }

@@ -49,6 +49,7 @@ public class PaseadoresController {
         try{
             return new ResponseEntity<>(easyCareService.getPaseadoresOrder(tipo), HttpStatus.OK);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>("No existe registro de paseadores", HttpStatus.NOT_FOUND);
         }
     }
@@ -60,6 +61,23 @@ public class PaseadoresController {
             return new ResponseEntity<>(easyCareService.getPaseador(documento,tdoc), HttpStatus.ACCEPTED);
         }catch (Exception e){
             return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/whoami")
+    @ApiOperation(value = "Obtiene informacion del paseador autenticado", notes = "El paseador solicitado debe estar autenticado")
+    public ResponseEntity<?> getPaseador(@RequestHeader("Authorization") String token){
+        try{
+            String correo = jwtService.user(token);
+            if(correo.length() > 0){
+                Paseador paseador = easyCareService.getPaseador(correo);
+                return new ResponseEntity<>(paseador,HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("No autenticado", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            }
+
+        }catch (Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

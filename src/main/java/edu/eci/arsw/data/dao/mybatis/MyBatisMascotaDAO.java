@@ -15,8 +15,9 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     MascotaMapper mascota;
 
     @Override
-    public Mascota getMascota(Long id) throws PersistenceException {
+    public Mascota getMascota(int id) throws PersistenceException {
         try{
+            System.out.println(id);
             Mascota ma = mascota.getMascota(id);
             return ma;
         }catch (Exception e){
@@ -38,6 +39,7 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     @Override
     public List<Mascota> getMascotas(String documento, String tipoDocumento) throws PersistenceException {
         try{
+            System.out.println(documento + " " + tipoDocumento);
             List<Mascota> ls = mascota.getMascotasCliente(documento, tipoDocumento);
             return ls;
         }catch (Exception e){

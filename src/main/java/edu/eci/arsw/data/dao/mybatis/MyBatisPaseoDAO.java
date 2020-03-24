@@ -15,7 +15,7 @@ public class MyBatisPaseoDAO implements PaseoDAO {
     PaseoMapper paseo;
 
     @Override
-    public Paseo getPaseo(Long id) throws PersistenceException {
+    public Paseo getPaseo(int id) throws PersistenceException {
         try{
             Paseo pa = paseo.getPaseo(id);
             return pa;

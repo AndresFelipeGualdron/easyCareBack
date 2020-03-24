@@ -16,7 +16,7 @@ public class MyBatisPaseoDAOTest extends MyBatisPaseoDAO {
     PaseoMapper paseo;
 
     @Override
-    public Paseo getPaseo(Long id) throws PersistenceException {
+    public Paseo getPaseo(int id) throws PersistenceException {
         super.setPaseo(paseo);
         return super.getPaseo(id);
     }

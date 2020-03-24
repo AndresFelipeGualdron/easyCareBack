@@ -14,7 +14,7 @@ public interface PaseoMapper {
     List<Paseo> getPaseos();
 
     @Select("SELECT * FROM paseo WHERE id = #{id}")
-    Paseo getPaseo(@Param("id") Long id);
+    Paseo getPaseo(@Param("id") int id);
 
     @Insert("")
     void save(@Param("paseo") Paseo paseo);

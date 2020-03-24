@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PaseoDAO {
 
-    public Paseo getPaseo(Long id) throws PersistenceException;
+    public Paseo getPaseo(int id) throws PersistenceException;
 
     public List<Paseo> getPaseos() throws PersistenceException;
 

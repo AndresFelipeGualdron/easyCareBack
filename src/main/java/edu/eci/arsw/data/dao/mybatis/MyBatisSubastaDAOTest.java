@@ -16,7 +16,7 @@ public class MyBatisSubastaDAOTest extends MyBatisSubastaDAO {
     SubastaMapper subasta;
 
     @Override
-    public Subasta getSubasta(Long id) throws PersistenceException {
+    public Subasta getSubasta(int id) throws PersistenceException {
         super.setSubasta(subasta);
         return super.getSubasta(id);
     }
