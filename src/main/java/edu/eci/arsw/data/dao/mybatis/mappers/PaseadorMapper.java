@@ -14,8 +14,11 @@ public interface PaseadorMapper {
     @Select("SELECT * FROM paseador")
     List<Paseador> getPaseadores();
 
-    @Select("SELECT * FROM paseador ORDER BY calificacion #{order}")
-    List<Paseador> getPaseadoresOrder(@Param("order") String order);
+    @Select("SELECT * FROM paseador ORDER BY calificacion DESC")
+    List<Paseador> getPaseadoresOrderDesc();
+
+    @Select("SELECT * FROM paseador ORDER BY calificacion ASC")
+    List<Paseador> getPaseadoresOrderAsc();
 
     @Select("SELECT * FROM paseador WHERE documento = #{documento} AND tipoDocumento = #{tDoc}")
     Paseador getPaseador(@Param("documento") String documento, @Param("tDoc") String tDoc);

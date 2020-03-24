@@ -49,6 +49,7 @@ public class PaseadoresController {
         try{
             return new ResponseEntity<>(easyCareService.getPaseadoresOrder(tipo), HttpStatus.OK);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>("No existe registro de paseadores", HttpStatus.NOT_FOUND);
         }
     }
