@@ -19,6 +19,8 @@ public interface EasyCareService {
 
     List<Mascota> getMascotas() throws ExceptionServiciosEasyCare;
 
+    List<Mascota> getMascotas(String cliente) throws ExceptionServiciosEasyCare;
+
     void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare;
 
     Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare;

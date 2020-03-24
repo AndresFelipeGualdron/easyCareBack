@@ -36,6 +36,16 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     }
 
     @Override
+    public List<Mascota> getMascotas(String documento, String tipoDocumento) throws PersistenceException {
+        try{
+            List<Mascota> ls = mascota.getMascotasCliente(documento, tipoDocumento);
+            return ls;
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
+    @Override
     public void save(Mascota mascota) throws PersistenceException {
         try{
             this.mascota.save(mascota);

@@ -28,6 +28,12 @@ public class MyBatisMascotaDAOTest extends MyBatisMascotaDAO {
     }
 
     @Override
+    public List<Mascota> getMascotas(String documento, String tipoDocumento) throws PersistenceException{
+        super.setMascota(mascota);
+        return super.getMascotas(documento, tipoDocumento);
+    }
+
+    @Override
     public void save(Mascota mascota) throws PersistenceException {
         super.setMascota(this.mascota);
         super.save(mascota);

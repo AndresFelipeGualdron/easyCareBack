@@ -89,6 +89,16 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
+    public List<Mascota> getMascotas(String cliente) throws ExceptionServiciosEasyCare {
+        try{
+            Cliente cliente1 = this.getCliente(cliente);
+            return this.mascota.getMascotas(cliente1.getDocumento(), cliente1.getTipoDocumento());
+        }catch (PersistenceException e){
+            throw new ExceptionServiciosEasyCare("no se ha podido realizar la consulta",e);
+        }
+    }
+
+    @Override
     public void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
         try {
             this.mascota.save(mascota);

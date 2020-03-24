@@ -72,6 +72,13 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
+    public List<Mascota> getMascotas(String cliente) throws ExceptionServiciosEasyCare{
+        super.setCliente(this.cliente);
+        super.setMascota(this.mascota);
+        return super.getMascotas(cliente);
+    }
+
+    @Override
     public void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
         super.setMascota(this.mascota);
         super.saveMascota(mascota);

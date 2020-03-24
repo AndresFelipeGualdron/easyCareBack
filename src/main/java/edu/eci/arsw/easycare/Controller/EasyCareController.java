@@ -60,6 +60,21 @@ public class EasyCareController {
         }
     }
 
+    @GetMapping("/cliente/mascotas")
+    @ApiOperation(value = "Encuentra las mascotas del cliente logueado", notes = "se debe estar logueado con token valido para obtener estas mascotas")
+    public ResponseEntity<?> getMascotas(@RequestHeader("Authorization") String token){
+        try{
+            String correo = jwtService.user(token);
+            if(correo.length() > 0){
+                return new ResponseEntity<>(easyCareService.getMascotas(correo), HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("Error", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/login/{correo}/{password}")
     public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
         try{

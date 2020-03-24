@@ -9,7 +9,9 @@ public interface MascotaDAO {
 
     Mascota getMascota(Long id) throws PersistenceException;
 
-    public List<Mascota> getMascotas() throws PersistenceException;
+    List<Mascota> getMascotas() throws PersistenceException;
 
-    public void save(Mascota mascota) throws PersistenceException;
+    List<Mascota> getMascotas(String documento, String tipoDocumento) throws PersistenceException;
+
+    void save(Mascota mascota) throws PersistenceException;
 }

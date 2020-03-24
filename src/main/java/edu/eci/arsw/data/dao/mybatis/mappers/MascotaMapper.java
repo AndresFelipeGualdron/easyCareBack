@@ -15,6 +15,9 @@ public interface MascotaMapper {
     @Select("SELECT * FROM mascota")
     List<Mascota> getMascotas();
 
+    @Select("SELECT * FROM mascota WHERE doccliente = #{documento} AND tipodoccliente = #{tipoDocumento}")
+    List<Mascota> getMascotasCliente(@Param("documento") String documento, @Param("tipoDocumento") String tipoDocumento);
+
     @Select("SELECT * FROM mascota WHERE id = #{id}")
     Mascota getMascota(@Param("id") Long id);
 
