@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/clients")
+@RequestMapping("/mascotas")
 @Api(value = "servicio Mascotas")
 public class MascotasController {
 
@@ -23,7 +23,7 @@ public class MascotasController {
         this.easyCareService = easyCareService;
     }
 
-    @GetMapping("/mascotas")
+    @GetMapping("/")
     @ApiOperation(value = "Obtiene todas las mascotas",notes = "devuelve todas las mascotas")
     public ResponseEntity<?> getMascotas(){
         try {
@@ -33,9 +33,9 @@ public class MascotasController {
         }
     }
 
-    @GetMapping("/mascotas/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "encuentra una mascota",notes = "devuelve una mascota por id")
-    public ResponseEntity<?> getMascota(@PathVariable Long id){
+    public ResponseEntity<?> getMascota(@PathVariable int id){
         try {
             return new ResponseEntity<>(easyCareService.getMascota(id),HttpStatus.ACCEPTED);
         }catch (Exception e){

@@ -34,7 +34,7 @@ public class PaseosController {
 
     @GetMapping("/paseos/{id}")
     @ApiOperation(value = "Encuentra un paseo",notes = "devuelve un paseo por id")
-    public ResponseEntity<?> getPaseo(@PathVariable Long id){
+    public ResponseEntity<?> getPaseo(@PathVariable int id){
         try {
             return new ResponseEntity<>(easyCareService.getPaseo(id), HttpStatus.ACCEPTED);
         }catch (Exception e){

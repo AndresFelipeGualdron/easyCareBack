@@ -60,7 +60,7 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
 
 
     @Override
-    public Mascota getMascota(Long id) throws ExceptionServiciosEasyCare {
+    public Mascota getMascota(int id) throws ExceptionServiciosEasyCare {
         super.setMascota(this.mascota);
         return super.getMascota(id);
     }
@@ -115,7 +115,7 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
-    public Paseo getPaseo(Long id) throws ExceptionServiciosEasyCare {
+    public Paseo getPaseo(int id) throws ExceptionServiciosEasyCare {
         super.setPaseo(this.paseo);
         return super.getPaseo(id);
     }
@@ -133,7 +133,7 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
-    public Subasta getSubasta(Long id) throws ExceptionServiciosEasyCare {
+    public Subasta getSubasta(int id) throws ExceptionServiciosEasyCare {
         super.setSubasta(this.subasta);
         return super.getSubasta(id);
     }

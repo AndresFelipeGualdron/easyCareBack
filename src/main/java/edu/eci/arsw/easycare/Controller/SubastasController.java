@@ -34,7 +34,7 @@ public class SubastasController {
 
     @GetMapping("/subastas/{id}")
     @ApiOperation(value = "Encuentra una subasta",notes = "Devuelve una subasta por id")
-    public ResponseEntity<?> getSubasta(@PathVariable Long id){
+    public ResponseEntity<?> getSubasta(@PathVariable int id){
         try {
             return new ResponseEntity<>(easyCareService.getSubasta(id), HttpStatus.ACCEPTED);
         }catch (Exception e){

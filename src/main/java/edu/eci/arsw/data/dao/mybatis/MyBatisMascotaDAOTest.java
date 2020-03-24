@@ -16,7 +16,7 @@ public class MyBatisMascotaDAOTest extends MyBatisMascotaDAO {
     MascotaMapper mascota;
 
     @Override
-    public Mascota getMascota(Long id) throws PersistenceException {
+    public Mascota getMascota(int id) throws PersistenceException {
         super.setMascota(mascota);
         return super.getMascota(id);
     }

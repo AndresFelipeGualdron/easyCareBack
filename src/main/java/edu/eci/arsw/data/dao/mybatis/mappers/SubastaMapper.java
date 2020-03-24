@@ -15,7 +15,7 @@ public interface SubastaMapper {
     List<Subasta> getSubastas();
 
     @Select("SELECT * FROM subasta WHERE id = #{id}")
-    Subasta getSubasta(@Param("id") Long id);
+    Subasta getSubasta(@Param("id") int id);
 
     @Insert("")
     void save(@Param("subasta") Subasta subasta);

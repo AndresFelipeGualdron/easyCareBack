@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SubastaDAO {
 
-    public Subasta getSubasta(Long id) throws PersistenceException;
+    public Subasta getSubasta(int id) throws PersistenceException;
 
     public List<Subasta> getSubastas() throws PersistenceException;
 
