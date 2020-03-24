@@ -48,7 +48,7 @@ public class MascotasController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     @ApiOperation(value = "Registra mascota", notes = "No retorna algún valor")
     public ResponseEntity<?> postMascota(@Valid @RequestBody Mascota mascota){
         try{
