@@ -1,14 +1,19 @@
 package edu.eci.arsw.easycare.Controller;
 
-
+import edu.eci.arsw.easycare.model.Mascota;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.web.bind.annotation.RestController
@@ -42,4 +47,16 @@ public class MascotasController {
             return new ResponseEntity<>("No se encontró la mascota requerida",HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/mascotas")
+    @ApiOperation(value = "Registra mascota", notes = "No retorna algún valor")
+    public ResponseEntity<?> postMascota(@Valid @RequestBody Mascota mascota){
+        try{
+            easyCareService.saveMascota(mascota);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>("No fue posible registrar la mascota", HttpStatus.FORBIDDEN);
+        }
+    }
+
 }
