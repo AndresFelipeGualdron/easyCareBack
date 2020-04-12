@@ -1,7 +1,6 @@
 package edu.eci.arsw.easycare.service;
 
-import edu.eci.arsw.data.dao.ClienteDAO;
-import edu.eci.arsw.data.dao.mybatis.PersistenceException;
+
 import edu.eci.arsw.easycare.model.*;
 
 import java.util.Collection;
@@ -53,4 +52,10 @@ public interface EasyCareService {
     void addSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
 
     void cerrarSubasta(int id) throws ExceptionServiciosEasyCare;
+
+    List<Paseador> getPaseadoresEnSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    void entrarASubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    void salirDeSubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare;
 }

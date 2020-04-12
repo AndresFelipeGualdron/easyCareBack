@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel("Model Ruta")
 public class Subasta {
@@ -22,6 +24,8 @@ public class Subasta {
     private int numMascotas;
     @ApiModelProperty(value = "se permitio mas mascotas en la subasta", required = true)
     private boolean permitirMasMascotas;
+    @ApiModelProperty(value = "Paseadores en la subasta", required = true)
+    List<Paseador> paseadores = new ArrayList<>();
 
     public Subasta(){
 
@@ -73,5 +77,13 @@ public class Subasta {
 
     public void setPermitirMasMascotas(boolean permitirMasMascotas) {
         this.permitirMasMascotas = permitirMasMascotas;
+    }
+
+    public List<Paseador> getPaseadores() {
+        return paseadores;
+    }
+
+    public void setPaseadores(List<Paseador> paseadores) {
+        this.paseadores = paseadores;
     }
 }

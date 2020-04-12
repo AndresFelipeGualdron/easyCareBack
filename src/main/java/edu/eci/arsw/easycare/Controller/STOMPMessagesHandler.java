@@ -1,6 +1,8 @@
 package edu.eci.arsw.easycare.Controller;
 
 
+import edu.eci.arsw.easycare.model.Cliente;
+import edu.eci.arsw.easycare.model.Paseador;
 import edu.eci.arsw.easycare.model.Subasta;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
@@ -43,8 +45,35 @@ public class STOMPMessagesHandler {
             Subasta sub = this.easyCareService.getSubasta(numSubasta);
             this.easyCareService.cerrarSubasta(numSubasta);
             this.simpMessagingTemplate.convertAndSend("/topic/subastas/cerrar", sub);
+            this.simpMessagingTemplate.convertAndSend("/topic/cerrar/subasta."+numSubasta, sub);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @MessageMapping("/subasta.{numSubasta}")
+    public void subastaEvent(Paseador paseador, @DestinationVariable int numSubasta){
+        try {
+            System.out.println(numSubasta);
+            Subasta subasta = new Subasta();
+            subasta.setId(numSubasta);
+            this.easyCareService.entrarASubasta(paseador, subasta);
+            this.simpMessagingTemplate.convertAndSend("/topic/subasta."+numSubasta, paseador);
+        } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
+            exceptionServiciosEasyCare.printStackTrace();
+        }
+    }
+
+    @MessageMapping("/salirsubasta.{numSubasta}")
+    public void salirSubastaEvent(Paseador paseador, @DestinationVariable int numSubasta){
+        try{
+            System.out.println("eliminando paseador de subasta: "+numSubasta);
+            Subasta subasta = new Subasta();
+            subasta.setId(numSubasta);
+            this.easyCareService.salirDeSubasta(paseador,subasta);
+            this.simpMessagingTemplate.convertAndSend("/topic/eliminarpaseador/subasta."+numSubasta, paseador);
+        }catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare){
+            exceptionServiciosEasyCare.printStackTrace();
         }
     }
 }

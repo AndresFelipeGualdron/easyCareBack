@@ -1,6 +1,7 @@
 package edu.eci.arsw.data.dao.mybatis.mappers;
 
 import edu.eci.arsw.easycare.model.Paseador;
+import edu.eci.arsw.easycare.model.Subasta;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,10 @@ public interface PaseadorMapper {
 
     @Insert("INSERT INTO paseador (documento , tipodocumento ,nombre ,correo ,telefono ,password, calificacion ) VALUES (#{paseador.documento}, #{paseador.tipoDocumento}, #{paseador.nombre}, #{paseador.correo}, #{paseador.telefono}, #{paseador.password}, #{paseador.calificacion})")
     void save(@Param("paseador") Paseador paseador);
+
+    @Select("SELECT paseador.documento,paseador.tipodocumento,paseador.nombre,paseador.correo,paseador.telefono,paseador.calificacion FROM paseador,paseador_subasta, subasta WHERE paseador.documento = paseador_subasta.docpaseador AND paseador.tipodocumento = paseador_subasta.tipodocpaseador AND subasta.id = paseador_subasta.idsubasta AND paseador_subasta.idsubasta = #{subasta.id}")
+    List<Paseador> getPaseadoresEnSubasta(@Param("subasta") Subasta subasta);
+
+    @Insert("INSERT INTO paseador_subasta (docpaseador,tipodocpaseador,idsubasta) VALUES (#{paseador.documento},#{paseador.tipoDocumento},#{subasta.id})")
+    void entrarASubasta(@Param("subasta") Subasta subasta, @Param("paseador") Paseador paseador);
 }

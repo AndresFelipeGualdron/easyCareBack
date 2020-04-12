@@ -5,16 +5,15 @@ import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.model.*;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 //@Data
@@ -254,6 +253,49 @@ public class EasyCareServiceImpl implements  EasyCareService{
             this.subastas.remove(id);
         } catch (PersistenceException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Paseador> getPaseadoresEnSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+        try {
+//            List<Paseador> paseadores = this.paseador.getPaseadoresEnSubasta(subasta);
+//            this.subastas.get(subasta.getId()).setPaseadores(paseadores);
+            return this.subastas.get(subasta.getId()).getPaseadores();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void entrarASubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare {
+        try {
+//            this.paseador.entrarEnSubasta(paseador,subasta);
+            AtomicBoolean flag = new AtomicBoolean(true);
+            this.subastas.get(subasta.getId()).getPaseadores().forEach(paseador1 -> {
+                if(paseador1.getCorreo().equals(paseador.getCorreo())){
+                    flag.set(false);
+                }
+            });
+            if(flag.get()) {
+                this.subastas.get(subasta.getId())
+                        .getPaseadores()
+                        .add(paseador);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void salirDeSubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare {
+        for(int i =0 ; i<this.subastas.get(subasta.getId()).getPaseadores().size(); i++){
+            if(this.subastas.get(subasta.getId()).getPaseadores().get(i).getCorreo().equals(paseador.getCorreo())){
+                System.out.println("entre para eliminar");
+                this.subastas.get(subasta.getId()).getPaseadores().remove(i);
+            }
         }
     }
 

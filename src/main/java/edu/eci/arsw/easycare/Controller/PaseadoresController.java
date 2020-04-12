@@ -3,6 +3,7 @@ package edu.eci.arsw.easycare.Controller;
 
 import edu.eci.arsw.easycare.model.Cliente;
 import edu.eci.arsw.easycare.model.Paseador;
+import edu.eci.arsw.easycare.model.Subasta;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import edu.eci.arsw.easycare.service.impl.JwtService;
@@ -134,6 +135,24 @@ public class PaseadoresController {
         } catch (ExceptionServiciosEasyCare e) {
             e.printStackTrace();
             return new ResponseEntity<>("Rechazo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/registrarEnSubasta/{subasta}")
+    public ResponseEntity<?> registrarEnSubasta(@RequestHeader("Authorization") String token, @PathVariable int subasta){
+        try{
+            String correo = jwtService.user(token);
+            if(correo.length() > 0){
+                Paseador paseador = this.easyCareService.getPaseador(correo);
+                Subasta s = this.easyCareService.getSubasta(subasta);
+                this.easyCareService.entrarASubasta(paseador,s);
+                List<Paseador> paseadores = this.easyCareService.getPaseadoresEnSubasta(s);
+                return new ResponseEntity<>(paseadores, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("No autenticado", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

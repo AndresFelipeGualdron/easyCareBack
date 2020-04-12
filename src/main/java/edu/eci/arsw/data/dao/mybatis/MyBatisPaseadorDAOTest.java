@@ -2,6 +2,7 @@ package edu.eci.arsw.data.dao.mybatis;
 
 import edu.eci.arsw.data.dao.mybatis.mappers.PaseadorMapper;
 import edu.eci.arsw.easycare.model.Paseador;
+import edu.eci.arsw.easycare.model.Subasta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -43,5 +44,17 @@ public class MyBatisPaseadorDAOTest extends MyBatisPaseadorDAO {
     public void save(Paseador paseador) throws PersistenceException {
         super.setPaseador(this.paseador);
         super.save(paseador);
+    }
+
+    @Override
+    public List<Paseador> getPaseadoresEnSubasta(Subasta subasta) throws PersistenceException {
+        super.setPaseador(this.paseador);
+        return super.getPaseadoresEnSubasta(subasta);
+    }
+
+    @Override
+    public void entrarEnSubasta(Paseador paseador, Subasta subasta) throws PersistenceException {
+        super.setPaseador(this.paseador);
+        super.entrarEnSubasta(paseador, subasta);
     }
 }
