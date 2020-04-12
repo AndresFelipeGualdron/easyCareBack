@@ -40,6 +40,9 @@ public class MyBatisConfigurationTest {
         sqlSessionFactory.getConfiguration().addMapper(PaseadorMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(PaseoMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(SubastaMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(RutaMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(UbicacionMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(PaseoEnCursoMapper.class);
         // Various other SqlSessionFactory settings
         return sqlSessionFactoryBean;
     }
@@ -79,6 +82,27 @@ public class MyBatisConfigurationTest {
         return factoryBean;
     }
 
+    @Bean(name = "rutaMapperTest")
+    public MapperFactoryBean<RutaMapper> rutaMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<RutaMapper> factoryBean = new MapperFactoryBean<>(RutaMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
+    @Bean(name = "ubicacionMapperTest")
+    public MapperFactoryBean<UbicacionMapper> ubicacionMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<UbicacionMapper> factoryBean = new MapperFactoryBean<>(UbicacionMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
+    @Bean(name = "paseoEnCursoMapperTest")
+    public MapperFactoryBean<PaseoEnCursoMapper> paseoEnCursoMapper(@Named(TEST_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<PaseoEnCursoMapper> factoryBean = new MapperFactoryBean<>(PaseoEnCursoMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
     @Bean(name = "clienteDAOTest")
     public ClienteDAO clienteDAO(){
         return new MyBatisClienteDAOTest();
@@ -86,22 +110,37 @@ public class MyBatisConfigurationTest {
 
     @Bean("mascotaDAOTest")
     public MascotaDAO mascotaDAO(){
-        return new MyBatisMascotaDAO();
+        return new MyBatisMascotaDAOTest();
     }
 
     @Bean("paseadorDAOTest")
     public PaseadorDAO paseadorDAO(){
-        return new MyBatisPaseadorDAO();
+        return new MyBatisPaseadorDAOTest();
     }
 
     @Bean("paseoDAOTest")
     public PaseoDAO paseoDAO(){
-        return new MyBatisPaseoDAO();
+        return new MyBatisPaseoDAOTest();
     }
 
     @Bean("subastaDAOTest")
     public SubastaDAO subastaDAO(){
-        return new MyBatisSubastaDAO();
+        return new MyBatisSubastaDAOTest();
+    }
+
+    @Bean("rutaDAOTest")
+    public RutaDAO rutaDAO(){
+        return new MyBatisRutaDAOTest();
+    }
+
+    @Bean("ubicacionDAOTest")
+    public UbicacionDAO ubicacionDAO(){
+        return new MyBatisUbicacionDAOTest();
+    }
+
+    @Bean("paseoEnCursoDAOTest")
+    public PaseoEnCursoDAO paseoEnCursoDAO(){
+        return new MyBatisPaseoEnCursoDAOTest();
     }
 
 

@@ -39,8 +39,14 @@ public class MyBatisPaseoDAO implements PaseoDAO {
         try {
             this.paseo.save(paseo);
         }catch (Exception e){
+            e.printStackTrace();
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
         }
+    }
+
+    @Override
+    public int nextId() throws PersistenceException {
+        return this.paseo.nexId();
     }
 
     //SET AND GETTERS

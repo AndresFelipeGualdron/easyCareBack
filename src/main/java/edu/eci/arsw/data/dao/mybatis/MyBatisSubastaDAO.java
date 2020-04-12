@@ -43,6 +43,16 @@ public class MyBatisSubastaDAO implements SubastaDAO {
         }
     }
 
+    @Override
+    public int nextId() throws PersistenceException {
+        return this.subasta.nextId();
+    }
+
+    @Override
+    public void cerrarSubasta(int id) throws PersistenceException {
+        this.subasta.cerrarSubasta(id);
+    }
+
     //SET AND GETTERS
     public void setSubasta(SubastaMapper subasta) {
         this.subasta = subasta;

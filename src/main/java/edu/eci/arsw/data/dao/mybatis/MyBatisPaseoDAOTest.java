@@ -32,4 +32,10 @@ public class MyBatisPaseoDAOTest extends MyBatisPaseoDAO {
         super.setPaseo(this.paseo);
         super.save(paseo);
     }
+
+    @Override
+    public int nextId() throws PersistenceException {
+        super.setPaseo(this.paseo);
+        return super.nextId();
+    }
 }

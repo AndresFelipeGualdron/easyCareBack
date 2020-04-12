@@ -31,13 +31,6 @@ public class EasyCareController {
         this.jwtService = jwtService;
     }
 
-
-
-//    @GetMapping("")
-//    public String holaMundo(Model model){
-//        return "hola";
-//    }
-
     @GetMapping("")
     @ApiOperation(value = "Obtener todos los clientes",notes = "retorna todos los clientes")
     public ResponseEntity<?> getClientes(){

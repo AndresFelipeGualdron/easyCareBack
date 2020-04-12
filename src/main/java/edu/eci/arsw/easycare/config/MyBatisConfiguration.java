@@ -36,6 +36,9 @@ public class MyBatisConfiguration {
         sqlSessionFactory.getConfiguration().addMapper(PaseadorMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(PaseoMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(SubastaMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(RutaMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(UbicacionMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(PaseoEnCursoMapper.class);
         // Various other SqlSessionFactory settings
         return sqlSessionFactoryBean;
     }
@@ -82,6 +85,30 @@ public class MyBatisConfiguration {
 
     @Bean
     @Primary
+    public MapperFactoryBean<RutaMapper> rutaMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<RutaMapper> factoryBean = new MapperFactoryBean<>(RutaMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
+    @Bean
+    @Primary
+    public MapperFactoryBean<UbicacionMapper> ubicacionMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<UbicacionMapper> factoryBean = new MapperFactoryBean<>(UbicacionMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
+    @Bean
+    @Primary
+    public MapperFactoryBean<PaseoEnCursoMapper> paseoEnCursoMapper(@Named(PRINCIPAL_SESSION_FACTORY) final SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception{
+        MapperFactoryBean<PaseoEnCursoMapper> factoryBean = new MapperFactoryBean<>(PaseoEnCursoMapper.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+        return factoryBean;
+    }
+
+    @Bean
+    @Primary
     public ClienteDAO clienteDAO(){
         return new MyBatisClienteDAO();
     }
@@ -108,6 +135,24 @@ public class MyBatisConfiguration {
     @Primary
     public SubastaDAO subastaDAO(){
         return new MyBatisSubastaDAO();
+    }
+
+    @Bean
+    @Primary
+    public RutaDAO rutaDAO(){
+        return new MyBatisRutaDAO();
+    }
+
+    @Bean
+    @Primary
+    public UbicacionDAO ubicacionDAO(){
+        return new MyBatisUbicacionDAO();
+    }
+
+    @Bean
+    @Primary
+    public PaseoEnCursoDAO paseoEnCursoDAO(){
+        return new MyBatisPaseoEnCursoDAO();
     }
 
 

@@ -14,4 +14,6 @@ public interface MascotaDAO {
     List<Mascota> getMascotas(String documento, String tipoDocumento) throws PersistenceException;
 
     void save(Mascota mascota) throws PersistenceException;
+
+    int nextId() throws PersistenceException;
 }

@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface PaseoDAO {
 
-    public Paseo getPaseo(int id) throws PersistenceException;
+    Paseo getPaseo(int id) throws PersistenceException;
 
-    public List<Paseo> getPaseos() throws PersistenceException;
+    List<Paseo> getPaseos() throws PersistenceException;
 
-    public void save(Paseo paseo) throws PersistenceException;
+    void save(Paseo paseo) throws PersistenceException;
+
+    int nextId() throws PersistenceException;
 }

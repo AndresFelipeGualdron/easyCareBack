@@ -12,12 +12,14 @@ public class Paseo {
     private int id;
     @NotNull
     @ApiModelProperty(value = "Ruta del paseo correspondiente", required = true)
-    private String ruta;
+    private Ruta ruta;
     @ApiModelProperty(value = "Duración del paseo", required = true)
     private int duracion;
     @NotNull
     @ApiModelProperty(value = "Especificaciones del paseo", required = true)
     private String especificaciones;
+    @ApiModelProperty(value = "Precio del paseo", required = true)
+    private int precio;
 
     public Paseo(){
 
@@ -31,11 +33,11 @@ public class Paseo {
         this.id = id;
     }
 
-    public String getRuta() {
+    public Ruta getRuta() {
         return ruta;
     }
 
-    public void setRuta(String ruta) {
+    public void setRuta(Ruta ruta) {
         this.ruta = ruta;
     }
 
@@ -53,5 +55,13 @@ public class Paseo {
 
     public void setEspecificaciones(String especificaciones) {
         this.especificaciones = especificaciones;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 }

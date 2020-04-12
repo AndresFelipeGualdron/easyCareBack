@@ -32,4 +32,16 @@ public class MyBatisSubastaDAOTest extends MyBatisSubastaDAO {
         super.setSubasta(this.subasta);
         super.save(subasta);
     }
+
+    @Override
+    public int nextId() throws PersistenceException {
+        super.setSubasta(this.subasta);
+        return super.nextId();
+    }
+
+    @Override
+    public void cerrarSubasta(int id) throws PersistenceException {
+        super.setSubasta(this.subasta);
+        super.cerrarSubasta(id);
+    }
 }

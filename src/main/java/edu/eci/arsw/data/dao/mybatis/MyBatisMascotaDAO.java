@@ -57,6 +57,11 @@ public class MyBatisMascotaDAO implements MascotaDAO {
 
     }
 
+    @Override
+    public int nextId() throws PersistenceException {
+        return this.mascota.nextId();
+    }
+
     //SET AND GETTERS
 
     public void setMascota(MascotaMapper mascota){

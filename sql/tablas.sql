@@ -64,8 +64,8 @@ longitudUbicacion INTEGER NOT NULL
 );
 
 CREATE TABLE Ubicacion(
-latitud INTEGER NOT NULL,
-longitud INTEGER NOT NULL
+latitud VARCHAR(50) NOT NULL,
+longitud VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Cliente_Paseo(

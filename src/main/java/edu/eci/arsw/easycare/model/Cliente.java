@@ -42,21 +42,13 @@ public class Cliente implements Serializable{
     @NotNull
     @ApiModelProperty(value = "Rutas que ha establecido el cliente en los paseos", required = true)
     private ArrayList<Ruta> rutasEstablecidas;
-
+    @ApiModelProperty(value = "Password del cliente", required = true)
     private String password;
 
 
 
     public Cliente(){
 
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getDocumento() {
@@ -121,5 +113,29 @@ public class Cliente implements Serializable{
 
     public void setMascotas(ArrayList<Mascota> mascotas) {
         this.mascotas = mascotas;
+    }
+
+    public ArrayList<Subasta> getSubastasUnidas() {
+        return subastasUnidas;
+    }
+
+    public void setSubastasUnidas(ArrayList<Subasta> subastasUnidas) {
+        this.subastasUnidas = subastasUnidas;
+    }
+
+    public ArrayList<Ruta> getRutasEstablecidas() {
+        return rutasEstablecidas;
+    }
+
+    public void setRutasEstablecidas(ArrayList<Ruta> rutasEstablecidas) {
+        this.rutasEstablecidas = rutasEstablecidas;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -21,6 +21,9 @@ public interface MascotaMapper {
     @Select("SELECT * FROM mascota WHERE id = #{id}")
     Mascota getMascota(@Param("id") int id);
 
+    @Select("SELECT nextval('id_mascota')")
+    int nextId();
+
     @Insert("")
     void save(@Param("mascota") Mascota mascota);
 }

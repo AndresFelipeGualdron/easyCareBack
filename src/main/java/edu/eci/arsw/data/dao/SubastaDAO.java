@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface SubastaDAO {
 
-    public Subasta getSubasta(int id) throws PersistenceException;
+    Subasta getSubasta(int id) throws PersistenceException;
 
-    public List<Subasta> getSubastas() throws PersistenceException;
+    List<Subasta> getSubastas() throws PersistenceException;
 
-    public void save(Subasta subasta) throws PersistenceException;
+    void save(Subasta subasta) throws PersistenceException;
+
+    int nextId() throws PersistenceException;
+
+    void cerrarSubasta(int id) throws PersistenceException;
 }

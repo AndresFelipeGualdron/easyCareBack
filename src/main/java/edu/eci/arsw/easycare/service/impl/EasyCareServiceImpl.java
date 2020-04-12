@@ -11,10 +11,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@Data
+//@Data
 @Component
 @Primary
 public class EasyCareServiceImpl implements  EasyCareService{
@@ -29,6 +32,16 @@ public class EasyCareServiceImpl implements  EasyCareService{
     private PaseoDAO paseo;
     @Autowired
     private SubastaDAO subasta;
+    @Autowired
+    private RutaDAO ruta;
+    @Autowired
+    private PaseoEnCursoDAO paseoEnCurso;
+    @Autowired
+    private UbicacionDAO ubicacion;
+
+
+    private ConcurrentHashMap<Integer, Subasta> subastas =new ConcurrentHashMap<>();
+
 
 
     @Override
@@ -171,10 +184,19 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare {
+    public void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare {
         try {
+            paseo.setId(this.paseo.nextId());
+            paseo.setDuracion(0);
+            Ruta ruta = new Ruta();
+            ruta.setId(this.ruta.nextId());
+            ruta.setPuntoPartida("lat: "+latitud+", lng: "+longitud);
+            ruta.setPuntoLlegada("lat: "+latitud+", lng: "+longitud);
+            this.ruta.saveRuta(ruta);
+            paseo.setRuta(ruta);
             this.paseo.save(paseo);
         } catch (PersistenceException e) {
+            e.printStackTrace();
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la operación",e);
         }
     }
@@ -200,9 +222,45 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
         try {
+            subasta.setId(this.subasta.nextId());
             this.subasta.save(subasta);
         } catch (PersistenceException e) {
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la ooperación",e);
+        }
+    }
+
+    @Override
+    public Collection<Subasta> getSubastasIniciadas() throws ExceptionServiciosEasyCare {
+        actualizar();
+        Collection<Subasta> s = this.subastas.values();
+        return s;
+    }
+
+    @Override
+    public void actualizar() throws ExceptionServiciosEasyCare {
+        try{
+            List<Subasta> s = this.subasta.getSubastas();
+            this.subastas.clear();
+            s.forEach(subasta1 -> {
+                subastas.put(subasta1.getId(), subasta1);
+            });
+        }catch (PersistenceException e){
+
+        }
+    }
+
+    @Override
+    public void addSubasta(Subasta subasta){
+        this.subastas.put(subasta.getId(),subasta);
+    }
+
+    @Override
+    public void cerrarSubasta(int id) throws ExceptionServiciosEasyCare {
+        try {
+            this.subasta.cerrarSubasta(id);
+            this.subastas.remove(id);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
     }
 
@@ -226,6 +284,18 @@ public class EasyCareServiceImpl implements  EasyCareService{
 
     public void setSubasta(SubastaDAO subasta) {
         this.subasta = subasta;
+    }
+
+    public void setRuta(RutaDAO ruta){
+        this.ruta = ruta;
+    }
+
+    public void setPaseoEnCurso(PaseoEnCursoDAO paseoEnCurso){
+        this.paseoEnCurso = paseoEnCurso;
+    }
+
+    public void setUbicacion(UbicacionDAO ubicacion){
+        this.ubicacion = ubicacion;
     }
 
 

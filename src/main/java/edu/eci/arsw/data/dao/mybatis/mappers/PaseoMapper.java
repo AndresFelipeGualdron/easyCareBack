@@ -16,6 +16,9 @@ public interface PaseoMapper {
     @Select("SELECT * FROM paseo WHERE id = #{id}")
     Paseo getPaseo(@Param("id") int id);
 
-    @Insert("")
+    @Select("SELECT nextval('id_paseo')")
+    int nexId();
+
+    @Insert("INSERT INTO Paseo (id,precio,idruta) VALUES (#{paseo.id},#{paseo.precio},#{paseo.ruta.id})")
     void save(@Param("paseo") Paseo paseo);
 }

@@ -4,6 +4,7 @@ import edu.eci.arsw.data.dao.ClienteDAO;
 import edu.eci.arsw.data.dao.mybatis.PersistenceException;
 import edu.eci.arsw.easycare.model.*;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface EasyCareService {
@@ -37,11 +38,19 @@ public interface EasyCareService {
 
     List<Paseo> getPaseos() throws ExceptionServiciosEasyCare;
 
-    void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare;
+    void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare;
 
     Subasta getSubasta(int id) throws ExceptionServiciosEasyCare;
 
     List<Subasta> getSubastas() throws ExceptionServiciosEasyCare;
 
     void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    Collection<Subasta> getSubastasIniciadas() throws ExceptionServiciosEasyCare;
+
+    void actualizar() throws ExceptionServiciosEasyCare;
+
+    void addSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    void cerrarSubasta(int id) throws ExceptionServiciosEasyCare;
 }

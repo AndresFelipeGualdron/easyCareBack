@@ -33,6 +33,16 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     @Autowired
     @Qualifier("subastaDAOTest")
     private SubastaDAO subasta;
+    @Autowired
+    @Qualifier("rutaDAOTest")
+    private RutaDAO ruta;
+    @Autowired
+    @Qualifier("paseoEnCursoDAOTest")
+    private PaseoEnCursoDAO paseoEnCurso;
+    @Autowired
+    @Qualifier("ubicacionDAOTest")
+    private UbicacionDAO ubicacion;
+
 
     @Override
     public Cliente getCliente(String doocumento, String tdoc) throws ExceptionServiciosEasyCare {
@@ -127,9 +137,10 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
-    public void savePaseo(Paseo paseo) throws ExceptionServiciosEasyCare {
+    public void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare {
         super.setPaseo(this.paseo);
-        super.savePaseo(paseo);
+        super.setRuta(this.ruta);
+        super.savePaseo(paseo, latitud, longitud);
     }
 
     @Override
@@ -148,5 +159,11 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     public void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
         super.setSubasta(this.subasta);
         super.saveSubasta(subasta);
+    }
+
+    @Override
+    public void cerrarSubasta(int id) throws ExceptionServiciosEasyCare {
+        super.setSubasta(this.subasta);
+        super.cerrarSubasta(id);
     }
 }

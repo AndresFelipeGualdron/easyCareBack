@@ -38,4 +38,10 @@ public class MyBatisMascotaDAOTest extends MyBatisMascotaDAO {
         super.setMascota(this.mascota);
         super.save(mascota);
     }
+
+    @Override
+    public int nextId() throws PersistenceException {
+        super.setMascota(this.mascota);
+        return super.nextId();
+    }
 }
