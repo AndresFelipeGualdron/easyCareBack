@@ -71,7 +71,7 @@ public class Subasta {
         this.numMascotas = numMascotas;
     }
 
-    public boolean isPermitirMasMascotas() {
+    public boolean getPermitirMasMascotas() {
         return permitirMasMascotas;
     }
 

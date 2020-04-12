@@ -1,16 +1,19 @@
 package edu.eci.arsw.easycare.Controller;
 
-import edu.eci.arsw.easycare.model.Cliente;
-import edu.eci.arsw.easycare.model.Paseo;
+import com.google.gson.Gson;
 import edu.eci.arsw.easycare.model.Subasta;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.impl.JwtService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/subastas")
@@ -56,6 +59,19 @@ public class SubastasController {
                 return new ResponseEntity<>("No autorizado",HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
             }
         }catch (Exception e){
+            return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{subasta}/ofertas")
+    public ResponseEntity<?> getOfertasSubasta(@PathVariable int subasta){
+        try{
+            Subasta subasta1 = new Subasta();
+            subasta1.setId(subasta);
+            System.out.println(this.easyCareService.getOfertasSubasta(subasta1).size() +" siiiiiiii");
+            return new ResponseEntity<>(this.easyCareService.getOfertasSubasta(subasta1), HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

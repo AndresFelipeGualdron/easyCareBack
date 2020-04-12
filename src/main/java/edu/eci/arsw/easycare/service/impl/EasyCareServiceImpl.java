@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,7 +41,8 @@ public class EasyCareServiceImpl implements  EasyCareService{
 
 
     private ConcurrentHashMap<Integer, Subasta> subastas =new ConcurrentHashMap<>();
-
+//    private ConcurrentHashMap<Integer, ConcurrentHashMap<Paseador, Integer>> ofertas = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, List<Oferta>> ofertas = new ConcurrentHashMap<>();
 
 
     @Override
@@ -203,6 +205,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public void saveSubasta(Subasta subasta,String latitud, String longitud) throws ExceptionServiciosEasyCare {
         try {
+            System.out.println(subasta.getPermitirMasMascotas());
             Paseo paseo = new Paseo();
             paseo.setId(this.paseo.nextId());
             paseo.setDuracion(0);
@@ -297,6 +300,26 @@ public class EasyCareServiceImpl implements  EasyCareService{
                 this.subastas.get(subasta.getId()).getPaseadores().remove(i);
             }
         }
+    }
+
+    @Override
+    public void agregarOfertaSubasta(Subasta subasta, Paseador paseador, int oferta) throws ExceptionServiciosEasyCare {
+        Oferta of = new Oferta();
+        of.setOferta(oferta);
+        of.setPaseador(paseador);
+        of.setSubasta(subasta);
+        this.ofertas.get(subasta.getId()).add(of);
+    }
+
+    @Override
+    public List<Oferta> getOfertasSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+        if(this.ofertas.get(subasta.getId()) == null){
+            System.out.println("no existe un arreglo todavia: " + this.ofertas.size());
+            List<Oferta> c = new ArrayList<>();
+            this.ofertas.put(subasta.getId(), c);
+        }
+        System.out.println(this.ofertas.size()+" cooooooooooooooooo "+subasta.getId());
+        return this.ofertas.get(subasta.getId());
     }
 
 //    TESTS

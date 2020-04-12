@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel("Model Paseador")
 public class Paseador {
@@ -42,11 +43,27 @@ public class Paseador {
     @ApiModelProperty(value = "Paseo que está realizando el paseador", required = true)
     private PaseoEnCurso paseoEnCurso;
 
+
     private String password;
 
     public Paseador(){
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj.getClass().equals(Paseador.class)){
+            return ((Paseador) obj).getCorreo().equals(this.correo);
+        }else {
+            return false;
+        }
+    }
+
+//    @Override
+//    public String toString() {
+//        String rta = "{\"documento\" :"+this.getDocumento()+" , \"tipoDocumento\" : "+this.getTipoDocumento()+", \"nombre\" : "+this.getNombre()+", \"correo\": "+this.getCorreo()+", \"telefono\" : "+this.getTelefono()+", \"calificacion\" : "+this.getCalificacion()+"}";
+//        return rta;
+//    }
 
     public String getDocumento() {
         return documento;
@@ -135,6 +152,4 @@ public class Paseador {
     public void setCalificacion(Long calificacion){
         this.calificacion = calificacion;
     }
-
-
 }

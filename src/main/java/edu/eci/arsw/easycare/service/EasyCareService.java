@@ -5,6 +5,7 @@ import edu.eci.arsw.easycare.model.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public interface EasyCareService {
     Cliente getCliente(String doocumento, String tdoc) throws ExceptionServiciosEasyCare;
@@ -58,4 +59,8 @@ public interface EasyCareService {
     void entrarASubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare;
 
     void salirDeSubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    void agregarOfertaSubasta(Subasta subasta, Paseador paseador, int oferta) throws ExceptionServiciosEasyCare;
+
+    List<Oferta> getOfertasSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
 }

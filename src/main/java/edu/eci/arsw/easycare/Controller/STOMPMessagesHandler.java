@@ -29,6 +29,7 @@ public class STOMPMessagesHandler {
             Subasta subasta = new Subasta();
             subasta.setCreador(json.getJSONObject("subasta").getString("creador"));
             subasta.setNumMascotas(json.getJSONObject("subasta").getInt("numMascotas"));
+            subasta.setPermitirMasMascotas(json.getJSONObject("subasta").getBoolean("permitirMasMascotas"));
             String latitud = String.valueOf(json.getDouble("latitud"));
             String longitud = String.valueOf(json.getDouble("longitud"));
             this.easyCareService.saveSubasta(subasta, latitud, longitud);
@@ -72,6 +73,22 @@ public class STOMPMessagesHandler {
             subasta.setId(numSubasta);
             this.easyCareService.salirDeSubasta(paseador,subasta);
             this.simpMessagingTemplate.convertAndSend("/topic/eliminarpaseador/subasta."+numSubasta, paseador);
+        }catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare){
+            exceptionServiciosEasyCare.printStackTrace();
+        }
+    }
+
+    @MessageMapping("/agregaroferta/subasta.{numSubasta}")
+    public void agregarOfertaSubasta(String datos, @DestinationVariable int numSubasta){
+        try{
+            System.out.println(datos);
+            JSONObject json = new JSONObject(datos);
+            Subasta subasta = new Subasta();
+            subasta.setId(json.getJSONObject("subasta").getInt("id"));
+            Paseador paseador = this.easyCareService.getPaseador(json.getJSONObject("ofertor").getString("correo"));
+            int oferta = json.getInt("oferta");
+            this.easyCareService.agregarOfertaSubasta(subasta,paseador,oferta);
+            this.simpMessagingTemplate.convertAndSend("/topic/agregaroferta/subasta."+numSubasta,datos);
         }catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare){
             exceptionServiciosEasyCare.printStackTrace();
         }
