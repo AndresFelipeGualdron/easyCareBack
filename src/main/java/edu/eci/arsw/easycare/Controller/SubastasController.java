@@ -46,31 +46,6 @@ public class SubastasController {
         }
     }
 
-    @PostMapping("/subasta/{paseo}/{mascotas}/{permitirMascotas}")
-    public ResponseEntity<?> saveSubasta(@RequestHeader("Authorization") String token,
-                                         @PathVariable int paseo,
-                                         @PathVariable int mascotas,
-                                         @PathVariable boolean permitirMascotas){
-        try{
-            String correo = jwtService.user(token);
-            if(correo.length() > 0){
-                Subasta subasta = new Subasta();
-                Paseo paseo1 = this.easyCareService.getPaseo(paseo);
-                subasta.setCreador(correo);
-                subasta.setIdpaseo(paseo1);
-                subasta.setOferta(0);
-                subasta.setNumMascotas(mascotas);
-                subasta.setPermitirMasMascotas(permitirMascotas);
-                this.easyCareService.saveSubasta(subasta);
-                return new ResponseEntity<>(subasta, HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>("No autorizado",HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-            }
-        }catch (Exception e){
-            return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @GetMapping("/iniciadas")
     public ResponseEntity<?> getSubastasIniciadas(@RequestHeader("Authorization") String token){
         try{

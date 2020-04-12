@@ -137,13 +137,6 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
-    public void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare {
-        super.setPaseo(this.paseo);
-        super.setRuta(this.ruta);
-        super.savePaseo(paseo, latitud, longitud);
-    }
-
-    @Override
     public Subasta getSubasta(int id) throws ExceptionServiciosEasyCare {
         super.setSubasta(this.subasta);
         return super.getSubasta(id);
@@ -156,9 +149,9 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
     }
 
     @Override
-    public void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+    public void saveSubasta(Subasta subasta,String latitud, String longitud) throws ExceptionServiciosEasyCare {
         super.setSubasta(this.subasta);
-        super.saveSubasta(subasta);
+        super.saveSubasta(subasta, latitud, longitud);
     }
 
     @Override

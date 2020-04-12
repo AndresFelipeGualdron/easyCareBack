@@ -184,24 +184,6 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare {
-        try {
-            paseo.setId(this.paseo.nextId());
-            paseo.setDuracion(0);
-            Ruta ruta = new Ruta();
-            ruta.setId(this.ruta.nextId());
-            ruta.setPuntoPartida("lat: "+latitud+", lng: "+longitud);
-            ruta.setPuntoLlegada("lat: "+latitud+", lng: "+longitud);
-            this.ruta.saveRuta(ruta);
-            paseo.setRuta(ruta);
-            this.paseo.save(paseo);
-        } catch (PersistenceException e) {
-            e.printStackTrace();
-            throw new ExceptionServiciosEasyCare("no se ha podido realizar la operación",e);
-        }
-    }
-
-    @Override
     public Subasta getSubasta(int id) throws ExceptionServiciosEasyCare {
         try {
             return this.subasta.getSubasta(id);
@@ -220,9 +202,20 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+    public void saveSubasta(Subasta subasta,String latitud, String longitud) throws ExceptionServiciosEasyCare {
         try {
+            Paseo paseo = new Paseo();
+            paseo.setId(this.paseo.nextId());
+            paseo.setDuracion(0);
+            Ruta ruta = new Ruta();
+            ruta.setId(this.ruta.nextId());
+            ruta.setPuntoPartida("lat: "+latitud+", lng: "+longitud);
+            ruta.setPuntoLlegada("lat: "+latitud+", lng: "+longitud);
+            this.ruta.saveRuta(ruta);
+            paseo.setRuta(ruta);
+            this.paseo.save(paseo);
             subasta.setId(this.subasta.nextId());
+            subasta.setIdpaseo(paseo);
             this.subasta.save(subasta);
         } catch (PersistenceException e) {
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la ooperación",e);

@@ -45,22 +45,4 @@ public class PaseosController {
         }
     }
 
-    @PostMapping("/paseo/{latitud}/{longitud}")
-    @ApiOperation(value = "Guarda un paseo",notes = "crea un nuevo paseo")
-    public ResponseEntity<?> savePaseo(@RequestHeader("Authorization") String token, @PathVariable String latitud, @PathVariable String longitud){
-        try{
-            String correo = jwtService.user(token);
-            if(correo.length() > 0){
-                Paseo paseo = new Paseo();
-                this.easyCareService.savePaseo(paseo, latitud, longitud);
-                return new ResponseEntity<>(paseo, HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>("No autorizado",HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>("El paseo no se pudo registrar", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
 }

@@ -1,11 +1,11 @@
 package edu.eci.arsw.easycare.Controller;
 
+
 import edu.eci.arsw.easycare.model.Subasta;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -19,12 +19,19 @@ public class STOMPMessagesHandler {
     @Autowired
     private EasyCareService easyCareService;
 
-    @MessageMapping("/nuevaSubasta.{numSubasta}")
-    public void nuevaSubastaEvent(Subasta subasta, @DestinationVariable int numSubasta){
+    @MessageMapping("/nuevaSubasta")
+    public void nuevaSubastaEvent(String datos){
         try {
-            this.easyCareService.addSubasta(subasta);
-            System.out.println(numSubasta);
+            System.out.println(datos);
+            JSONObject json = new JSONObject(datos);
+            Subasta subasta = new Subasta();
+            subasta.setCreador(json.getJSONObject("subasta").getString("creador"));
+            subasta.setNumMascotas(json.getJSONObject("subasta").getInt("numMascotas"));
+            String latitud = String.valueOf(json.getDouble("latitud"));
+            String longitud = String.valueOf(json.getDouble("longitud"));
+            this.easyCareService.saveSubasta(subasta, latitud, longitud);
             this.simpMessagingTemplate.convertAndSend("/topic/subastas",subasta);
+            this.easyCareService.addSubasta(subasta);
         } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
             exceptionServiciosEasyCare.printStackTrace();
         }

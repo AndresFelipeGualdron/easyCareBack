@@ -38,13 +38,13 @@ public interface EasyCareService {
 
     List<Paseo> getPaseos() throws ExceptionServiciosEasyCare;
 
-    void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare;
+//    void savePaseo(Paseo paseo, String latitud, String longitud) throws ExceptionServiciosEasyCare;
 
     Subasta getSubasta(int id) throws ExceptionServiciosEasyCare;
 
     List<Subasta> getSubastas() throws ExceptionServiciosEasyCare;
 
-    void saveSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
+    void saveSubasta(Subasta subasta,String latitud, String longitud) throws ExceptionServiciosEasyCare;
 
     Collection<Subasta> getSubastasIniciadas() throws ExceptionServiciosEasyCare;
 

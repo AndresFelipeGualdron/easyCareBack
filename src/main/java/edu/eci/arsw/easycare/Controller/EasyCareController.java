@@ -42,6 +42,22 @@ public class EasyCareController {
         }
     }
 
+    @GetMapping("/whoami")
+    @ApiOperation(value = "Obtiene informacion del cliente autenticado", notes = "El cliente solicitado debe estar autenticado")
+    public ResponseEntity<?> getCliente(@RequestHeader("Authorization") String token){
+        try{
+            String correo = jwtService.user(token);
+            if(correo.length() > 0){
+                Cliente cliente = this.easyCareService.getCliente(correo);
+                return new ResponseEntity<>(cliente,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("No autenticado", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/{documento}/{tdoc}")
     @ApiOperation(value = "Encuentra un cliente",notes = "devuelve un solo cliente por documento y tipo de documento")
     public ResponseEntity<?> getClienteByDocument(@PathVariable String documento, @PathVariable String tdoc){
