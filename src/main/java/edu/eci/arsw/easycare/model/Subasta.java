@@ -10,10 +10,8 @@ import java.util.List;
 @ApiModel("Model Ruta")
 public class Subasta {
 
-    @NotNull
     @ApiModelProperty(value = "Identificador de la subasta", required = true)
     private int id;
-    @NotNull
     @ApiModelProperty(value = "Valor que se dió como resultado de la subasta", required = true)
     private int oferta;
     @ApiModelProperty(value = "Creador de la subasta", required = true)

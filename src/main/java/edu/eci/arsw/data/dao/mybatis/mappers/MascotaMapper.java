@@ -24,6 +24,6 @@ public interface MascotaMapper {
     @Select("SELECT nextval('id_mascota')")
     int nextId();
 
-    @Insert("")
+    @Insert("INSERT INTO mascota (id,nombre,raza,edad,genero,doccliente,tipodoccliente,docpaseador,tipodocpaseador,idpaseoencurso) VALUES (#{mascota.id},#{mascota.nombre},#{mascota.raza},#{mascota.edad},#{mascota.genero},#{mascota.cliente.documento},#{mascota.cliente.tipoDocumento},null,null,null)")
     void save(@Param("mascota") Mascota mascota);
 }

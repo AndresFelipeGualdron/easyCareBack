@@ -28,7 +28,7 @@ public class MascotasController {
         this.easyCareService = easyCareService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @ApiOperation(value = "Obtiene todas las mascotas",notes = "devuelve todas las mascotas")
     public ResponseEntity<?> getMascotas(){
         try {
@@ -50,11 +50,13 @@ public class MascotasController {
 
     @PostMapping("")
     @ApiOperation(value = "Registra mascota", notes = "No retorna algún valor")
-    public ResponseEntity<?> postMascota(@Valid @RequestBody Mascota mascota){
+    public ResponseEntity<?> postMascota(@RequestBody Mascota mascota){
         try{
+            System.out.println("entre");
             easyCareService.saveMascota(mascota);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch(Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>("No fue posible registrar la mascota", HttpStatus.FORBIDDEN);
         }
     }

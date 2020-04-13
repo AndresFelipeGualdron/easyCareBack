@@ -8,10 +8,15 @@ import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 @Controller
 public class STOMPMessagesHandler {
@@ -33,6 +38,7 @@ public class STOMPMessagesHandler {
             String latitud = String.valueOf(json.getDouble("latitud"));
             String longitud = String.valueOf(json.getDouble("longitud"));
             this.easyCareService.saveSubasta(subasta, latitud, longitud);
+//            this.simpMessagingTemplate.co
             this.simpMessagingTemplate.convertAndSend("/topic/subastas",subasta);
             this.easyCareService.addSubasta(subasta);
         } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
@@ -92,5 +98,26 @@ public class STOMPMessagesHandler {
         }catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare){
             exceptionServiciosEasyCare.printStackTrace();
         }
+    }
+
+    @EventListener
+    private void handleSessionConnect(SessionConnectedEvent event){
+        System.out.println("Conectadoooooooooooooooo "+event.getMessage().getHeaders());
+    }
+
+    @EventListener
+    private void handleSessionDesconnect(SessionDisconnectEvent event){
+        System.out.println("Desconectadooooooooooooooooooo" + event.toString());
+    }
+
+    @EventListener
+    private void handleSessionSubscription(SessionSubscribeEvent event){
+        System.out.println("Conectadoooooooooooooooo Subscriptoooooooooooooorrrrrrrrrrrrrrr"+event.getMessage());
+
+    }
+
+    @EventListener
+    private void handleSessionSubscription(SessionUnsubscribeEvent event){
+        System.out.println("Desconectadooooooooooooooooooo Subscriptoooooooooooooooooooooooor");
     }
 }

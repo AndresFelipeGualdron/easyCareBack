@@ -7,15 +7,13 @@ import javax.validation.constraints.NotNull;
 
 @ApiModel("Model Paseo")
 public class Paseo {
-    @NotNull
+
     @ApiModelProperty(value = "Identificador del Paseo", required = true)
     private int id;
-    @NotNull
     @ApiModelProperty(value = "Ruta del paseo correspondiente", required = true)
     private Ruta ruta;
     @ApiModelProperty(value = "Duración del paseo", required = true)
     private int duracion;
-    @NotNull
     @ApiModelProperty(value = "Especificaciones del paseo", required = true)
     private String especificaciones;
     @ApiModelProperty(value = "Precio del paseo", required = true)

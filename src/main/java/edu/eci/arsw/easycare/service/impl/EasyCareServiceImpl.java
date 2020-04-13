@@ -115,6 +115,8 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
         try {
+            int id = this.mascota.nextId();
+            mascota.setId(id);
             this.mascota.save(mascota);
         } catch (PersistenceException e) {
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la operacioón",e);

@@ -9,34 +9,26 @@ import java.util.List;
 
 @ApiModel("Model Paseador")
 public class Paseador {
-    @NotNull
+
     @ApiModelProperty(value = "documento del paseador", required = true)
     private String documento;
-    @NotNull
     @ApiModelProperty(value = "tipo de documento del paseador", required = true)
     private String tipoDocumento;
-    @NotNull
     @ApiModelProperty(value = "nombre del paseador", required = true)
     private String nombre;
-    @NotNull
     @ApiModelProperty(value = "correo del paseador", required = true)
     private String correo;
-    @NotNull
     @ApiModelProperty(value = "telefono del paseador", required = true)
     private String telefono;
-    @NotNull
     @ApiModelProperty(value = "Clificación del paseador", required = true)
     private Long calificacion;
 
-    @NotNull
     @ApiModelProperty(value = "Los paseos que ha ofertado el paseador", required = true)
     private ArrayList<Paseo> paseosOfrecidos;
 
-    @NotNull
     @ApiModelProperty(value = "subastas en las que ha participado el paseador", required = true)
     private ArrayList<Subasta> subastas;
 
-    @NotNull
     @ApiModelProperty(value = "Mascotas que ha paseado el paseador", required = true)
     private ArrayList<Mascota> mascotas;
 

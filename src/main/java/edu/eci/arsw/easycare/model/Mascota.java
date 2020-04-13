@@ -10,21 +10,22 @@ import java.io.Serializable;
 @ApiModel("Model Mascota")
 public class Mascota implements Serializable {
 
-    @NotNull
     @ApiModelProperty(value = "Id de la mascota", required = true)
     private int id;
-    @NotNull
     @ApiModelProperty(value = "Nombre de la mascota", required = true)
     private String nombre;
-    @NotNull
     @ApiModelProperty(value = "Raza de la mascota", required = true)
     private String raza;
-    @NotNull
     @ApiModelProperty(value = "Edad de la mascota", required = true)
     private int edad;
-    @NotNull
     @ApiModelProperty(value = "Genero de la mascota", required = true)
     private String genero;
+    @ApiModelProperty(value = "Dueño de la mascota", required = true)
+    private Cliente cliente;
+    @ApiModelProperty(value = "Paseador de la mascota en el momento de un paseo", required = true)
+    private Paseador paseador;
+    @ApiModelProperty(value = "Paseo en curso de la mascota", required = true)
+    private PaseoEnCurso paseoEnCurso;
 
     public Mascota(){
 
@@ -69,5 +70,29 @@ public class Mascota implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Paseador getPaseador() {
+        return paseador;
+    }
+
+    public void setPaseador(Paseador paseador) {
+        this.paseador = paseador;
+    }
+
+    public PaseoEnCurso getPaseoEnCurso() {
+        return paseoEnCurso;
+    }
+
+    public void setPaseoEnCurso(PaseoEnCurso paseoEnCurso) {
+        this.paseoEnCurso = paseoEnCurso;
     }
 }
