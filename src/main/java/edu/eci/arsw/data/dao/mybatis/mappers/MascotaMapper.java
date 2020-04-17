@@ -2,10 +2,7 @@ package edu.eci.arsw.data.dao.mybatis.mappers;
 
 
 import edu.eci.arsw.easycare.model.Mascota;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -26,4 +23,10 @@ public interface MascotaMapper {
 
     @Insert("INSERT INTO mascota (id,nombre,raza,edad,genero,doccliente,tipodoccliente,docpaseador,tipodocpaseador,idpaseoencurso) VALUES (#{mascota.id},#{mascota.nombre},#{mascota.raza},#{mascota.edad},#{mascota.genero},#{mascota.cliente.documento},#{mascota.cliente.tipoDocumento},null,null,null)")
     void save(@Param("mascota") Mascota mascota);
+
+    @Update("UPDATE mascota SET nombre = #{mascota.nombre}, raza = #{mascota.raza}, edad = #{mascota.edad}, genero = #{mascota.genero}, doccliente = #{mascota.cliente.documento}, tipodoccliente = #{mascota.cliente.tipoDocumento} WHERE id = #{mascota.id}")
+    void update(@Param("mascota") Mascota mascota);
+
+    @Delete("DELETE FROM mascota WHERE id = #{id}")
+    void delete(@Param("id") int id);
 }

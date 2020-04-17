@@ -15,5 +15,9 @@ public interface MascotaDAO {
 
     void save(Mascota mascota) throws PersistenceException;
 
+    void update(Mascota mascota) throws  PersistenceException;
+
+    void delete(int id) throws PersistenceException;
+
     int nextId() throws PersistenceException;
 }
