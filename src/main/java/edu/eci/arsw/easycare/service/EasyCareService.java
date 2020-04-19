@@ -24,6 +24,10 @@ public interface EasyCareService {
 
     void saveMascota(Mascota mascota) throws ExceptionServiciosEasyCare;
 
+    void updateMascota(Mascota mascota) throws ExceptionServiciosEasyCare;
+
+    void deleteMascota(int id) throws ExceptionServiciosEasyCare;
+
     Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare;
 
     Paseador getPaseador(String correo) throws ExceptionServiciosEasyCare;

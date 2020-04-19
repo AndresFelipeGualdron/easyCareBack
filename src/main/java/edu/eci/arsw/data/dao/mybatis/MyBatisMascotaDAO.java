@@ -58,6 +58,26 @@ public class MyBatisMascotaDAO implements MascotaDAO {
     }
 
     @Override
+    public void update(Mascota mascota) throws PersistenceException {
+        try {
+            this.mascota.update(mascota);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
+    @Override
+    public void delete(int id) throws PersistenceException {
+        try {
+            this.mascota.delete(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new PersistenceException((PersistenceException.ERROR_EN_LA_SOLICITUD));
+        }
+    }
+
+    @Override
     public int nextId() throws PersistenceException {
         return this.mascota.nextId();
     }

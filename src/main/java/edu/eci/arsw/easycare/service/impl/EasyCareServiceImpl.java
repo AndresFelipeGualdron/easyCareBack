@@ -124,6 +124,26 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
+    public void updateMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
+        try {
+            this.mascota.update(mascota);
+        }catch (PersistenceException e){
+            e.printStackTrace();
+            throw new ExceptionServiciosEasyCare("No se ha podido realizar la operación",e);
+        }
+    }
+
+    @Override
+    public void deleteMascota(int id) throws ExceptionServiciosEasyCare {
+        try {
+            this.mascota.delete(id);
+        }catch (PersistenceException e){
+            e.printStackTrace();
+            throw new ExceptionServiciosEasyCare("no se pudo eliminar la mascota",e);
+        }
+    }
+
+    @Override
     public Paseador getPaseador(String documento, String tdoc) throws ExceptionServiciosEasyCare {
         try {
             return this.paseador.getPaseador(documento, tdoc);
