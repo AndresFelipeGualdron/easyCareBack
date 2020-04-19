@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/clients")
 @Api(value = "servicio Clientes")
@@ -41,6 +42,7 @@ public class EasyCareController {
             return null;
         }
     }
+
 
     @GetMapping("/whoami")
     @ApiOperation(value = "Obtiene informacion del cliente autenticado", notes = "El cliente solicitado debe estar autenticado")

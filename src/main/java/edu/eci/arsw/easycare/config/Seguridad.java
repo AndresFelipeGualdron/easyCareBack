@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +27,6 @@ public class Seguridad extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        System.out.println("^^^^^^^^^^^^^");
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -39,12 +39,21 @@ public class Seguridad extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http
-                .csrf().disable() //Cross-Site Request Forgery disable to API
-                .httpBasic() // login with Auth Basic for getting a token
+                .csrf().disable()
+                .httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated(); // stateless to API
-//                .and().addFilter(jwtAuthorizationFilter());
+                .and().authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
         http.addFilter(jwtAuthorizationFilter());
+
+//        http.cors()
+//                .and()
+//                .authorizeRequests().antMatchers("/**")
+//                .hasAuthority("SCOPE_write")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .oauth2ResourceServer()
+//                .jwt();
     }
 
     @Bean

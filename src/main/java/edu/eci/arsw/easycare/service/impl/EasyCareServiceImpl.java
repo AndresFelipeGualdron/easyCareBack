@@ -324,6 +324,11 @@ public class EasyCareServiceImpl implements  EasyCareService{
         return this.ofertas.get(subasta.getId());
     }
 
+    @Override
+    public ConcurrentHashMap<Integer, Subasta> getSubastasEnCurso() throws ExceptionServiciosEasyCare {
+        return this.subastas;
+    }
+
 //    TESTS
 
     public void setCliente(ClienteDAO cliente) {

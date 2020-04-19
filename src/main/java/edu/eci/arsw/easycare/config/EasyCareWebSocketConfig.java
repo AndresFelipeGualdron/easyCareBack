@@ -19,7 +19,12 @@ public class EasyCareWebSocketConfig implements WebSocketMessageBrokerConfigurer
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/easyCareSocket").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/easyCareSocketPaseo").setAllowedOrigins("*").withSockJS();
     }
+
+
+
+
 
 
 }
