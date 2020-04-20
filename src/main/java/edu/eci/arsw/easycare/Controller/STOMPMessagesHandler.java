@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
@@ -79,7 +80,7 @@ public class STOMPMessagesHandler {
             List par = new ArrayList();
             par.add(numSubasta); par.add(paseador);
             this.sesionesSubastaPaseadores.put(sessionId,par);
-            System.out.println(numSubasta);
+            System.out.println(paseador.getUbicacion().getLatitud() + " }}}}}}}}}}}}}}}}}}}}}}}}}");
             Subasta subasta = new Subasta();
             subasta.setId(numSubasta);
             this.easyCareService.entrarASubasta(paseador, subasta);
@@ -138,6 +139,16 @@ public class STOMPMessagesHandler {
         } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
             exceptionServiciosEasyCare.printStackTrace();
         }
+    }
+
+    @MessageMapping("/actualizarUbicacionPaseador/{lat}/{lng}")
+    public void actualizarUbicacionPaseador(Subasta subasta, @DestinationVariable double lat, @DestinationVariable double lng){
+        this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+subasta.getCreador().getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
+    }
+
+    @GetMapping("/actualizarUbicacionCliente/{lat}/{lng}")
+    public void actualizarUbicacionCliente(Paseador paseador, @DestinationVariable double lat, @DestinationVariable double lng){
+        this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+paseador.getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
     }
 
     @EventListener

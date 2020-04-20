@@ -35,6 +35,9 @@ public class Paseador {
     @ApiModelProperty(value = "Paseo que está realizando el paseador", required = true)
     private PaseoEnCurso paseoEnCurso;
 
+    @ApiModelProperty(value = "Ubicacion del paseador", required = true)
+    private Ubicacion ubicacion;
+
 
     private String password;
 
@@ -50,12 +53,6 @@ public class Paseador {
             return false;
         }
     }
-
-//    @Override
-//    public String toString() {
-//        String rta = "{\"documento\" :"+this.getDocumento()+" , \"tipoDocumento\" : "+this.getTipoDocumento()+", \"nombre\" : "+this.getNombre()+", \"correo\": "+this.getCorreo()+", \"telefono\" : "+this.getTelefono()+", \"calificacion\" : "+this.getCalificacion()+"}";
-//        return rta;
-//    }
 
     public String getDocumento() {
         return documento;
@@ -143,5 +140,13 @@ public class Paseador {
 
     public void setCalificacion(Long calificacion){
         this.calificacion = calificacion;
+    }
+
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }

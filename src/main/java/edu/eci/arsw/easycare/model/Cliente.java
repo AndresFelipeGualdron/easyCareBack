@@ -34,6 +34,8 @@ public class Cliente implements Serializable{
     private ArrayList<Ruta> rutasEstablecidas;
     @ApiModelProperty(value = "Password del cliente", required = true)
     private String password;
+    @ApiModelProperty(value = "Ubicacion del cliente" , required = true)
+    private Ubicacion ubicacion;
 
 
 
@@ -127,5 +129,13 @@ public class Cliente implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }
