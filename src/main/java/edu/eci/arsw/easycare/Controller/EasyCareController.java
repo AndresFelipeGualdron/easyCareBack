@@ -22,15 +22,15 @@ import java.util.List;
 public class EasyCareController {
 
     @Autowired
-    private final EasyCareService easyCareService;
+    private EasyCareService easyCareService;
 
     @Autowired
-    private final JwtService jwtService;
+    private JwtService jwtService;
 
-    public EasyCareController(EasyCareService easyCareService, JwtService jwtService) {
-        this.easyCareService = easyCareService;
-        this.jwtService = jwtService;
-    }
+//    public EasyCareController(EasyCareService easyCareService, JwtService jwtService) {
+//        this.easyCareService = easyCareService;
+//        this.jwtService = jwtService;
+//    }
 
     @GetMapping("")
     @ApiOperation(value = "Obtener todos los clientes",notes = "retorna todos los clientes")

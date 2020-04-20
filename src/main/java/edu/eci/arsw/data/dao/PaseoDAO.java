@@ -14,4 +14,6 @@ public interface PaseoDAO {
     void save(Paseo paseo) throws PersistenceException;
 
     int nextId() throws PersistenceException;
+
+    void update(Paseo paseo) throws PersistenceException;
 }

@@ -3,6 +3,7 @@ package edu.eci.arsw.easycare.Controller;
 import com.google.gson.Gson;
 import edu.eci.arsw.easycare.model.Subasta;
 import edu.eci.arsw.easycare.service.EasyCareService;
+import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import edu.eci.arsw.easycare.service.impl.JwtService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.concurrent.atomic.AtomicReference;
 
 @org.springframework.web.bind.annotation.RestController
@@ -73,6 +75,17 @@ public class SubastasController {
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("El paseador solicitado no existe", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<?> putSubasta(@Valid @RequestBody Subasta subasta){
+        try{
+            easyCareService.actualizarSubasta(subasta);
+            return new ResponseEntity<>(subasta, HttpStatus.ACCEPTED);
+        } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
+            exceptionServiciosEasyCare.printStackTrace();
+            return new ResponseEntity<>("No se pudo actualizar la subasta", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

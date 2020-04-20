@@ -17,7 +17,7 @@ public class Subasta {
     @ApiModelProperty(value = "Creador de la subasta", required = true)
     private Cliente creador;
     @ApiModelProperty(value = "paseo de la subasta", required = true)
-    private Paseo idpaseo;
+    private Paseo paseo;
     @ApiModelProperty(value = "cantidad de mascotas de la subasta", required = true)
     private int numMascotas;
     @ApiModelProperty(value = "se permitio mas mascotas en la subasta", required = true)
@@ -53,12 +53,12 @@ public class Subasta {
         this.creador = creador;
     }
 
-    public Paseo getIdpaseo() {
-        return idpaseo;
+    public Paseo getPaseo() {
+        return paseo;
     }
 
-    public void setIdpaseo(Paseo idpaseo) {
-        this.idpaseo = idpaseo;
+    public void setPaseo(Paseo idpaseo) {
+        this.paseo = idpaseo;
     }
 
     public int getNumMascotas() {

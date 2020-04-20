@@ -2,10 +2,7 @@ package edu.eci.arsw.data.dao.mybatis.mappers;
 
 
 import edu.eci.arsw.easycare.model.Cliente;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,5 +20,8 @@ public interface ClienteMapper {
 
     @Insert("INSERT INTO cliente (documento , tipodocumento ,nombre ,correo ,telefono ,password ) VALUES (#{cliente.documento}, #{cliente.tipoDocumento}, #{cliente.nombre}, #{cliente.correo}, #{cliente.telefono}, #{cliente.password})")
     void save(@Param("cliente") Cliente cliente);
+
+    @Update("UPDATE cliente SET nombre = #{cliente.nombre}, correo = #{cliente.correo}, telefono = #{cliente.telefono} WHERE documento = #{cliente.documento} AND tipodocumento = #{cliente.tipoDocumento}")
+    void updateCliente(@Param("cliente") Cliente cliente);
 
 }

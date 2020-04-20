@@ -38,4 +38,10 @@ public class MyBatisPaseoDAOTest extends MyBatisPaseoDAO {
         super.setPaseo(this.paseo);
         return super.nextId();
     }
+
+    @Override
+    public void update(Paseo paseo) throws PersistenceException {
+        super.setPaseo(this.paseo);
+        super.update(paseo);
+    }
 }

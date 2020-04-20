@@ -39,4 +39,10 @@ public class MyBatisClienteDAOTest extends MyBatisClienteDAO{
         super.setCliente(this.cliente);
         super.save(cliente);
     }
+
+    @Override
+    public void updateCliente(Cliente cliente) throws PersistenceException {
+        super.setCliente(this.cliente);
+        super.updateCliente(cliente);
+    }
 }

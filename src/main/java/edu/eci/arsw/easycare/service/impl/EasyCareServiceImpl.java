@@ -227,20 +227,16 @@ public class EasyCareServiceImpl implements  EasyCareService{
     public void saveSubasta(Subasta subasta,String latitud, String longitud) throws ExceptionServiciosEasyCare {
         try {
             System.out.println(subasta.getPermitirMasMascotas());
-            Paseo paseo = new Paseo();
-            paseo.setId(this.paseo.nextId());
-            paseo.setDuracion(0);
-            Ruta ruta = new Ruta();
-            ruta.setId(this.ruta.nextId());
-            ruta.setPuntoPartida("lat: "+latitud+", lng: "+longitud);
-            ruta.setPuntoLlegada("lat: "+latitud+", lng: "+longitud);
-            this.ruta.saveRuta(ruta);
-            paseo.setRuta(ruta);
-            this.paseo.save(paseo);
+            subasta.getPaseo().setId(this.paseo.nextId());
+            subasta.getPaseo().getRuta().setId(this.ruta.nextId());
+            subasta.getPaseo().getRuta().setPuntoPartida("lat: "+latitud+", lng: "+longitud);
+            subasta.getPaseo().getRuta().setPuntoLlegada("lat: "+latitud+", lng: "+longitud);
+            this.ruta.saveRuta(subasta.getPaseo().getRuta());
+            this.paseo.save(subasta.getPaseo());
             subasta.setId(this.subasta.nextId());
-            subasta.setIdpaseo(paseo);
             this.subasta.save(subasta);
         } catch (PersistenceException e) {
+            e.printStackTrace();
             throw new ExceptionServiciosEasyCare("no se ha podido realizar la ooperación",e);
         }
     }
@@ -345,6 +341,27 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public Subasta getSubastaIniciada(int subasta) throws ExceptionServiciosEasyCare {
         return this.subastas.get(subasta);
+    }
+
+    @Override
+    public void actualizarSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+        try {
+            this.ruta.updateRuta(subasta.getPaseo().getRuta());
+            this.paseo.update(subasta.getPaseo());
+            this.cliente.updateCliente(subasta.getCreador());
+            this.subasta.updateSubasta(subasta);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void actualizarPaseador(Paseador paseador) throws ExceptionServiciosEasyCare {
+        try{
+            this.paseador.update(paseador);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
 

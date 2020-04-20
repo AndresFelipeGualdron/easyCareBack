@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,16 @@ public class PaseadoresController {
                 return new ResponseEntity<>("No autenticado", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
             }
         }catch (Exception e){
+            return new ResponseEntity<>("Error en la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<?> actualizarPaseador(@Valid @RequestBody Paseador paseador){
+        try{
+            return new ResponseEntity<>(paseador, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("Error en la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

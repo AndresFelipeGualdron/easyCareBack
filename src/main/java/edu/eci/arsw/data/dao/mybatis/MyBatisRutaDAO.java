@@ -31,4 +31,9 @@ public class MyBatisRutaDAO implements RutaDAO {
     public Ruta getRuta(int id) throws PersistenceException {
         return null;
     }
+
+    @Override
+    public void updateRuta(Ruta ruta) throws PersistenceException {
+        this.rutaMapper.updateRuta(ruta);
+    }
 }

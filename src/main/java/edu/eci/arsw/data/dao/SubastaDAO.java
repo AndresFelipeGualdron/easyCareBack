@@ -19,4 +19,6 @@ public interface SubastaDAO {
     int nextId() throws PersistenceException;
 
     void cerrarSubasta(int id) throws PersistenceException;
+
+    void updateSubasta(Subasta subasta) throws PersistenceException;
 }

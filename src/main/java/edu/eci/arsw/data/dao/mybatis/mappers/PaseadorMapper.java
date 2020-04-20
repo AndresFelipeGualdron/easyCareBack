@@ -2,10 +2,7 @@ package edu.eci.arsw.data.dao.mybatis.mappers;
 
 import edu.eci.arsw.easycare.model.Paseador;
 import edu.eci.arsw.easycare.model.Subasta;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -35,4 +32,7 @@ public interface PaseadorMapper {
 
     @Insert("INSERT INTO paseador_subasta (docpaseador,tipodocpaseador,idsubasta) VALUES (#{paseador.documento},#{paseador.tipoDocumento},#{subasta.id})")
     void entrarASubasta(@Param("subasta") Subasta subasta, @Param("paseador") Paseador paseador);
+
+    @Update("UPDATE paseador SET documento = #{paseador.documento}, tipodocumento = #{paseador.tipoDocumento}, nombre = #{paseador.nombre}, correo = #{paseador.correo}, telefono = #{paseador.telefono} WHERE documento = #{paseador.documento} AND tipodocumento = #{paseador.tipoDocumento}")
+    void update(@Param("paseador") Paseador paseador);
 }

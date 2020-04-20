@@ -70,4 +70,8 @@ public interface EasyCareService {
 
     Subasta getSubastaIniciada(int subasta) throws ExceptionServiciosEasyCare;
 
+    void actualizarSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
+
+    void actualizarPaseador(Paseador paseador) throws ExceptionServiciosEasyCare;
+
 }

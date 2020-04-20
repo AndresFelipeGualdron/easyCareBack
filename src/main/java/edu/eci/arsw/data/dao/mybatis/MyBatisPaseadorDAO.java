@@ -90,6 +90,15 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
         }
     }
 
+    @Override
+    public void update(Paseador paseador) throws PersistenceException {
+        try{
+            this.paseador.update(paseador);
+        }catch (Exception e){
+            throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
+        }
+    }
+
     //SETS AND GETTERS
 
     public void setPaseador(PaseadorMapper paseador){

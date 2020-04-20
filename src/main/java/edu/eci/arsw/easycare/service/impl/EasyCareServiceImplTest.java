@@ -171,4 +171,28 @@ public class EasyCareServiceImplTest extends EasyCareServiceImpl{
         super.setPaseador(this.paseador);
         super.entrarASubasta(paseador, subasta);
     }
+
+    @Override
+    public void updateMascota(Mascota mascota) throws ExceptionServiciosEasyCare {
+        super.setMascota(this.mascota);
+        super.updateMascota(mascota);
+    }
+
+    @Override
+    public void deleteMascota(int id) throws ExceptionServiciosEasyCare {
+        super.setMascota(this.mascota);
+        super.deleteMascota(id);
+    }
+
+    @Override
+    public void actualizarSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
+        super.setSubasta(this.subasta);
+        super.actualizarSubasta(subasta);
+    }
+
+    @Override
+    public void actualizarPaseador(Paseador paseador) throws ExceptionServiciosEasyCare {
+        super.setPaseador(this.paseador);
+        super.actualizarPaseador(paseador);
+    }
 }

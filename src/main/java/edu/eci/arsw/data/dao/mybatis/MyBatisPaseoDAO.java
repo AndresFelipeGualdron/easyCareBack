@@ -49,6 +49,11 @@ public class MyBatisPaseoDAO implements PaseoDAO {
         return this.paseo.nexId();
     }
 
+    @Override
+    public void update(Paseo paseo) throws PersistenceException {
+        this.paseo.update(paseo);
+    }
+
     //SET AND GETTERS
     public void setPaseo(PaseoMapper paseo) {
         this.paseo = paseo;

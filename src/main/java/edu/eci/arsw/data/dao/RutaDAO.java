@@ -11,4 +11,6 @@ public interface RutaDAO {
 
     Ruta getRuta(int id) throws PersistenceException;
 
+    void updateRuta(Ruta ruta) throws PersistenceException;
+
 }

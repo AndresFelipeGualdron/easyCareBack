@@ -21,4 +21,6 @@ public interface PaseadorDAO {
     List<Paseador> getPaseadoresEnSubasta(Subasta subasta) throws PersistenceException;
 
     void entrarEnSubasta(Paseador paseador, Subasta subasta) throws PersistenceException;
+
+    void update(Paseador paseador) throws PersistenceException;
 }

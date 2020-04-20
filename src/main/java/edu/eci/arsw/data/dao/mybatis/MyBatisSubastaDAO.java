@@ -3,6 +3,7 @@ package edu.eci.arsw.data.dao.mybatis;
 import edu.eci.arsw.data.dao.SubastaDAO;
 import edu.eci.arsw.data.dao.mybatis.mappers.SubastaMapper;
 import edu.eci.arsw.easycare.model.Cliente;
+import edu.eci.arsw.easycare.model.Paseo;
 import edu.eci.arsw.easycare.model.Subasta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,8 +34,10 @@ public class MyBatisSubastaDAO implements SubastaDAO {
             List<Subasta> ls = subasta.getSubastas();
             ls.forEach(sub -> {
                 Cliente c = subasta.getCreador(sub);
+                Paseo p = subasta.getPaseo(sub);
                 System.out.println(c.getCorreo() + " **************");
                 sub.setCreador(c);
+                sub.setPaseo(p);
             });
             return ls;
         }catch (Exception e){
@@ -53,6 +56,7 @@ public class MyBatisSubastaDAO implements SubastaDAO {
         try{
             this.subasta.save(subasta);
         }catch (Exception e){
+            e.printStackTrace();
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
         }
     }
@@ -65,6 +69,11 @@ public class MyBatisSubastaDAO implements SubastaDAO {
     @Override
     public void cerrarSubasta(int id) throws PersistenceException {
         this.subasta.cerrarSubasta(id);
+    }
+
+    @Override
+    public void updateSubasta(Subasta subasta) throws PersistenceException {
+        this.subasta.updateSubasta(subasta);
     }
 
     //SET AND GETTERS

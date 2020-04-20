@@ -29,4 +29,10 @@ public class MyBatisRutaDAOTest extends MyBatisRutaDAO {
         super.setRutaMapper(this.rutaMapper);
         return super.getRuta(id);
     }
+
+    @Override
+    public void updateRuta(Ruta ruta) throws PersistenceException {
+        super.setRutaMapper(this.rutaMapper);
+        super.updateRuta(ruta);
+    }
 }

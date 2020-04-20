@@ -1,9 +1,7 @@
 package edu.eci.arsw.easycare.Controller;
 
 
-import edu.eci.arsw.easycare.model.Cliente;
-import edu.eci.arsw.easycare.model.Paseador;
-import edu.eci.arsw.easycare.model.Subasta;
+import edu.eci.arsw.easycare.model.*;
 import edu.eci.arsw.easycare.service.EasyCareService;
 import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import org.json.JSONObject;
@@ -48,7 +46,14 @@ public class STOMPMessagesHandler {
             cliente.setTelefono(json.getJSONObject("subasta").getJSONObject("creador").getString("telefono"));
             cliente.setNombre(json.getJSONObject("subasta").getJSONObject("creador").getString("nombre"));
             System.out.println(json.getJSONObject("subasta").getJSONObject("creador")+" >>>>>>>>>>>>>>>");
+            Ruta ruta = new Ruta();
+            Paseo paseo = new Paseo();
+            paseo.setRuta(ruta);
+            paseo.setDuracion(json.getJSONObject("subasta").getJSONObject("paseo").getInt("duracion"));
+            paseo.setEspecificaciones(json.getJSONObject("subasta").getJSONObject("paseo").getString("especificaciones"));
+            paseo.setPrecio(json.getJSONObject("subasta").getJSONObject("paseo").getInt("precio"));
             subasta.setCreador(cliente);
+            subasta.setPaseo(paseo);
             subasta.setNumMascotas(json.getJSONObject("subasta").getInt("numMascotas"));
             subasta.setPermitirMasMascotas(json.getJSONObject("subasta").getBoolean("permitirMasMascotas"));
             String latitud = String.valueOf(json.getDouble("latitud"));
@@ -146,9 +151,14 @@ public class STOMPMessagesHandler {
         this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+subasta.getCreador().getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
     }
 
-    @GetMapping("/actualizarUbicacionCliente/{lat}/{lng}")
+    @MessageMapping("/actualizarUbicacionCliente/{lat}/{lng}")
     public void actualizarUbicacionCliente(Paseador paseador, @DestinationVariable double lat, @DestinationVariable double lng){
         this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+paseador.getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
+    }
+
+    @MessageMapping("/cancelarPaseo")
+    public void cancelarPaseo(Subasta subasta){
+        this.simpMessagingTemplate.convertAndSend("/topic/cancelarPaseo."+subasta.getCreador().getCorreo(), subasta);
     }
 
     @EventListener

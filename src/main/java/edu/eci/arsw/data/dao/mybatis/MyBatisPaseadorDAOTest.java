@@ -57,4 +57,10 @@ public class MyBatisPaseadorDAOTest extends MyBatisPaseadorDAO {
         super.setPaseador(this.paseador);
         super.entrarEnSubasta(paseador, subasta);
     }
+
+    @Override
+    public void update(Paseador paseador) throws PersistenceException {
+        super.setPaseador(this.paseador);
+        super.update(paseador);
+    }
 }
