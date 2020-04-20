@@ -9,20 +9,15 @@ import edu.eci.arsw.easycare.service.ExceptionServiciosEasyCare;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
-import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
@@ -35,34 +30,29 @@ public class STOMPMessagesHandler {
 
     private Timer timer;
     private TimerTask timerTask;
-    private ConcurrentHashMap<String, Cliente> sesiones = new ConcurrentHashMap<>();
-
-    public STOMPMessagesHandler(){
-
-//        this.timerTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                easyCareService.getSubastasEnCurso().forEach((numSubasta, subasta) -> {
-//                    simpMessagingTemplate.convertAndSend("/subasta/"+numSubasta+"/"+subasta.getCreador());
-//                    simpMessagingTemplate.
-//                });
-//            }
-//        };
-
-    }
+    private ConcurrentHashMap<String, Subasta> sesionesSubastaCreadores = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, List<Object>> sesionesSubastaPaseadores = new ConcurrentHashMap<>();
 
     @MessageMapping("/nuevaSubasta")
-    public void nuevaSubastaEvent(String datos, SessionSubscribeEvent sessionSubscribeEvent){
+    public void nuevaSubastaEvent(String datos, @Header("simpSessionId") String sessionId){
         try {
             System.out.println(datos);
-            System.out.println(sessionSubscribeEvent.toString());
+            System.out.println(sessionId + " ######################");
             JSONObject json = new JSONObject(datos);
             Subasta subasta = new Subasta();
-            subasta.setCreador(json.getJSONObject("subasta").getString("creador"));
+            Cliente cliente = new Cliente();
+            cliente.setDocumento(json.getJSONObject("subasta").getJSONObject("creador").getString("documento"));
+            cliente.setCorreo(json.getJSONObject("subasta").getJSONObject("creador").getString("correo"));
+            cliente.setTipoDocumento(json.getJSONObject("subasta").getJSONObject("creador").getString("tipoDocumento"));
+            cliente.setTelefono(json.getJSONObject("subasta").getJSONObject("creador").getString("telefono"));
+            cliente.setNombre(json.getJSONObject("subasta").getJSONObject("creador").getString("nombre"));
+            System.out.println(json.getJSONObject("subasta").getJSONObject("creador")+" >>>>>>>>>>>>>>>");
+            subasta.setCreador(cliente);
             subasta.setNumMascotas(json.getJSONObject("subasta").getInt("numMascotas"));
             subasta.setPermitirMasMascotas(json.getJSONObject("subasta").getBoolean("permitirMasMascotas"));
             String latitud = String.valueOf(json.getDouble("latitud"));
             String longitud = String.valueOf(json.getDouble("longitud"));
+            this.sesionesSubastaCreadores.put(sessionId,subasta);
             this.easyCareService.saveSubasta(subasta, latitud, longitud);
             this.simpMessagingTemplate.convertAndSend("/topic/subastas",subasta);
             this.easyCareService.addSubasta(subasta);
@@ -84,22 +74,25 @@ public class STOMPMessagesHandler {
     }
 
     @MessageMapping("/subasta.{numSubasta}")
-    public void subastaEvent(Paseador paseador, @DestinationVariable int numSubasta){
+    public void subastaEvent(Paseador paseador, @DestinationVariable int numSubasta, @Header("simpSessionId") String sessionId){
         try {
+            List par = new ArrayList();
+            par.add(numSubasta); par.add(paseador);
+            this.sesionesSubastaPaseadores.put(sessionId,par);
             System.out.println(numSubasta);
             Subasta subasta = new Subasta();
             subasta.setId(numSubasta);
             this.easyCareService.entrarASubasta(paseador, subasta);
             this.simpMessagingTemplate.convertAndSend("/topic/subasta."+numSubasta, paseador);
-            this.simpMessagingTemplate.convertAndSendToUser("migue24co@gmail.com","subasta",subasta);
         } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
             exceptionServiciosEasyCare.printStackTrace();
         }
     }
 
     @MessageMapping("/salirsubasta.{numSubasta}")
-    public void salirSubastaEvent(Paseador paseador, @DestinationVariable int numSubasta){
+    public void salirSubastaEvent(Paseador paseador, @DestinationVariable int numSubasta, @Header("simpSessionId") String sessionId){
         try{
+            this.sesionesSubastaPaseadores.remove(sessionId);
             System.out.println("eliminando paseador de subasta: "+numSubasta);
             Subasta subasta = new Subasta();
             subasta.setId(numSubasta);
@@ -126,6 +119,27 @@ public class STOMPMessagesHandler {
         }
     }
 
+    @MessageMapping("/elegirPaseador/{idSubasta}/{lat}/{lng}")
+    public void aceptarOferta(Paseador paseadorSeleccionado, @DestinationVariable int idSubasta, @DestinationVariable double lat, @DestinationVariable double lng){
+        try {
+            Subasta sub = this.easyCareService.getSubastaIniciada(idSubasta);
+            System.out.println(this.easyCareService.getSubastaIniciada(idSubasta)+" &&&&&&&&&&&&&&&&&&&&&&");
+            sub.getPaseadores().forEach(paseador -> {
+                if(paseador.getCorreo().equals(paseadorSeleccionado.getCorreo())){
+                    System.out.println("(((((((((((((((((((())))))))))))))))))))");
+                    this.simpMessagingTemplate.convertAndSend("/topic/decisionSubasta/"+paseadorSeleccionado.getCorreo(),"{\"seleccionado\" : \"true\", \"lat\" : "+lat+", \"lng\" : "+lng+"}");
+                }else{
+                    System.out.println("++++++++++++++++++++++++++++");
+                    this.simpMessagingTemplate.convertAndSend("/topic/decisionSubasta/"+paseadorSeleccionado.getCorreo(),"{\"seleccionado\" : \"false\"}");
+                }
+            });
+            this.simpMessagingTemplate.convertAndSend("/topic/subastas/cerrar", sub);
+            this.easyCareService.cerrarSubasta(idSubasta);
+        } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
+            exceptionServiciosEasyCare.printStackTrace();
+        }
+    }
+
     @EventListener
     private void handleSessionConnect(SessionConnectedEvent event){
         System.out.println("Conectadoooooooooooooooo "+event.getMessage().getHeaders());
@@ -137,7 +151,26 @@ public class STOMPMessagesHandler {
 
     @EventListener
     private void handleSessionDesconnect(SessionDisconnectEvent event){
-        System.out.println("Desconectadooooooooooooooooooo" + event.toString());
+        try {
+            if(this.sesionesSubastaCreadores.get(event.getSessionId())!=null){
+                int id = this.sesionesSubastaCreadores.get(event.getSessionId()).getId();
+                System.out.println(event.getSessionId() + " oooooooooooooooooooooo");
+                this.easyCareService.cerrarSubasta(id);
+                this.simpMessagingTemplate.convertAndSend("/topic/subastas/cerrar", this.sesionesSubastaCreadores.get(event.getSessionId()));
+                this.simpMessagingTemplate.convertAndSend("/topic/cerrar/subasta."+id,
+                        this.sesionesSubastaCreadores.get(event.getSessionId()));
+                this.sesionesSubastaCreadores.remove(event.getSessionId());
+            }else if (this.sesionesSubastaPaseadores.get(event.getSessionId()) != null){
+                int numSubasta = (Integer) this.sesionesSubastaPaseadores.get(event.getSessionId()).get(0);
+                Paseador paseador = (Paseador)this.sesionesSubastaPaseadores.get(event.getSessionId()).get(1);
+                Subasta subasta = new Subasta();
+                subasta.setId(numSubasta);
+                this.easyCareService.salirDeSubasta(paseador,subasta);
+                this.simpMessagingTemplate.convertAndSend("/topic/eliminarpaseador/subasta."+numSubasta, paseador);
+            }
+        } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
+            exceptionServiciosEasyCare.printStackTrace();
+        }
     }
 
     @SubscribeMapping("/subasta/{numSubasta}/{user}")
@@ -147,6 +180,6 @@ public class STOMPMessagesHandler {
 
     @EventListener
     private void handleSessionSubscription(SessionUnsubscribeEvent event){
-        System.out.println("Desconectadooooooooooooooooooo Subscriptoooooooooooooooooooooooor "+event.getMessage());
+        System.out.println("Desconectadooooooooooooooooooo Subscriptoooooooooooooooooooooooor "+event.getMessage().getHeaders().get("sessionId") + " ");
     }
 }

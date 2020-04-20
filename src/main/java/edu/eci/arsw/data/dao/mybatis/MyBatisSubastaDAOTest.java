@@ -1,6 +1,7 @@
 package edu.eci.arsw.data.dao.mybatis;
 
 import edu.eci.arsw.data.dao.mybatis.mappers.SubastaMapper;
+import edu.eci.arsw.easycare.model.Cliente;
 import edu.eci.arsw.easycare.model.Subasta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,12 @@ public class MyBatisSubastaDAOTest extends MyBatisSubastaDAO {
     public List<Subasta> getSubastas() throws PersistenceException {
         super.setSubasta(subasta);
         return super.getSubastas();
+    }
+
+    @Override
+    public Cliente getCreador(Subasta subasta) throws PersistenceException {
+        super.setSubasta(this.subasta);
+        return super.getCreador(subasta);
     }
 
     @Override

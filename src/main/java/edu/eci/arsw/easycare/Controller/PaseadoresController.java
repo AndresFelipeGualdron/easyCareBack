@@ -86,9 +86,8 @@ public class PaseadoresController {
     @PostMapping("/login/{correo}/{password}")
     public ResponseEntity<?> authenticateUser(@PathVariable String correo, @PathVariable String password) {
         try{
-            Cliente cl = easyCareService.getCliente(correo);
             Paseador ps = easyCareService.getPaseador(correo);
-            if(cl!=null && cl.getPassword().equals(password)){
+            if(ps!=null && ps.getPassword().equals(password)){
                 List<String> roles = new ArrayList<>();
                 roles.add("cliente");
                 String tk = jwtService.createToken(correo,roles);

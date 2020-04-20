@@ -68,5 +68,6 @@ public interface EasyCareService {
 
     List<Oferta> getOfertasSubasta(Subasta subasta) throws ExceptionServiciosEasyCare;
 
-    ConcurrentHashMap<Integer, Subasta> getSubastasEnCurso() throws ExceptionServiciosEasyCare;
+    Subasta getSubastaIniciada(int subasta) throws ExceptionServiciosEasyCare;
+
 }

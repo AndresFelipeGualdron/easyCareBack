@@ -15,7 +15,7 @@ public class Subasta {
     @ApiModelProperty(value = "Valor que se dió como resultado de la subasta", required = true)
     private int oferta;
     @ApiModelProperty(value = "Creador de la subasta", required = true)
-    private String creador;
+    private Cliente creador;
     @ApiModelProperty(value = "paseo de la subasta", required = true)
     private Paseo idpaseo;
     @ApiModelProperty(value = "cantidad de mascotas de la subasta", required = true)
@@ -45,11 +45,11 @@ public class Subasta {
         this.oferta = oferta;
     }
 
-    public String getCreador() {
+    public Cliente getCreador() {
         return creador;
     }
 
-    public void setCreador(String creador) {
+    public void setCreador(Cliente creador) {
         this.creador = creador;
     }
 

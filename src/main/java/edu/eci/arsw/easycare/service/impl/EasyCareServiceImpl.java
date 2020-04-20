@@ -41,7 +41,6 @@ public class EasyCareServiceImpl implements  EasyCareService{
 
 
     private ConcurrentHashMap<Integer, Subasta> subastas =new ConcurrentHashMap<>();
-//    private ConcurrentHashMap<Integer, ConcurrentHashMap<Paseador, Integer>> ofertas = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Integer, List<Oferta>> ofertas = new ConcurrentHashMap<>();
 
 
@@ -259,10 +258,11 @@ public class EasyCareServiceImpl implements  EasyCareService{
             List<Subasta> s = this.subasta.getSubastas();
             this.subastas.clear();
             s.forEach(subasta1 -> {
+                System.out.println(subasta1 + " 66666666666");
                 subastas.put(subasta1.getId(), subasta1);
             });
         }catch (PersistenceException e){
-
+            e.printStackTrace();
         }
     }
 
@@ -274,6 +274,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public void cerrarSubasta(int id) throws ExceptionServiciosEasyCare {
         try {
+            System.out.println("CERRANDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             this.subasta.cerrarSubasta(id);
             this.subastas.remove(id);
         } catch (PersistenceException e) {
@@ -284,8 +285,6 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public List<Paseador> getPaseadoresEnSubasta(Subasta subasta) throws ExceptionServiciosEasyCare {
         try {
-//            List<Paseador> paseadores = this.paseador.getPaseadoresEnSubasta(subasta);
-//            this.subastas.get(subasta.getId()).setPaseadores(paseadores);
             return this.subastas.get(subasta.getId()).getPaseadores();
         }catch (Exception e){
             e.printStackTrace();
@@ -296,7 +295,6 @@ public class EasyCareServiceImpl implements  EasyCareService{
     @Override
     public void entrarASubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare {
         try {
-//            this.paseador.entrarEnSubasta(paseador,subasta);
             AtomicBoolean flag = new AtomicBoolean(true);
             this.subastas.get(subasta.getId()).getPaseadores().forEach(paseador1 -> {
                 if(paseador1.getCorreo().equals(paseador.getCorreo())){
@@ -308,7 +306,7 @@ public class EasyCareServiceImpl implements  EasyCareService{
                         .getPaseadores()
                         .add(paseador);
             }
-
+            System.out.println(this.subastas.size() + " ppppppppppppppppppp");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -345,9 +343,10 @@ public class EasyCareServiceImpl implements  EasyCareService{
     }
 
     @Override
-    public ConcurrentHashMap<Integer, Subasta> getSubastasEnCurso() throws ExceptionServiciosEasyCare {
-        return this.subastas;
+    public Subasta getSubastaIniciada(int subasta) throws ExceptionServiciosEasyCare {
+        return this.subastas.get(subasta);
     }
+
 
 //    TESTS
 
