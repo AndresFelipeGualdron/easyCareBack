@@ -151,9 +151,9 @@ public class STOMPMessagesHandler {
         this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+subasta.getCreador().getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
     }
 
-    @MessageMapping("/actualizarUbicacionCliente/{lat}/{lng}")
-    public void actualizarUbicacionCliente(Paseador paseador, @DestinationVariable double lat, @DestinationVariable double lng){
-        this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+paseador.getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+" }");
+    @MessageMapping("/actualizarUbicacionCliente/{lat}/{lng}/{subasta}")
+    public void actualizarUbicacionCliente(Paseador paseador, @DestinationVariable double lat, @DestinationVariable double lng, @DestinationVariable int subasta){
+        this.simpMessagingTemplate.convertAndSend("/topic/actualizarUbicacion."+paseador.getCorreo(), "{\"lat\" : "+lat+", \"lng\" : "+lng+", \" subasta\" : "+subasta+" }");
     }
 
     @MessageMapping("/cancelarPaseo")
