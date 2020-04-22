@@ -310,12 +310,15 @@ public class EasyCareServiceImpl implements  EasyCareService{
 
     @Override
     public void salirDeSubasta(Paseador paseador, Subasta subasta) throws ExceptionServiciosEasyCare {
-        for(int i =0 ; i<this.subastas.get(subasta.getId()).getPaseadores().size(); i++){
-            if(this.subastas.get(subasta.getId()).getPaseadores().get(i).getCorreo().equals(paseador.getCorreo())){
-                System.out.println("entre para eliminar");
-                this.subastas.get(subasta.getId()).getPaseadores().remove(i);
+        if(this.subastas.size() > 0){
+            for(int i =0 ; i<this.subastas.get(subasta.getId()).getPaseadores().size(); i++){
+                if(this.subastas.get(subasta.getId()).getPaseadores().get(i).getCorreo().equals(paseador.getCorreo())){
+                    System.out.println("entre para eliminar");
+                    this.subastas.get(subasta.getId()).getPaseadores().remove(i);
+                }
             }
         }
+
     }
 
     @Override

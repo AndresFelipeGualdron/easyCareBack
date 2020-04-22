@@ -161,6 +161,11 @@ public class STOMPMessagesHandler {
         this.simpMessagingTemplate.convertAndSend("/topic/cancelarPaseo."+subasta.getCreador().getCorreo(), subasta);
     }
 
+    @MessageMapping("/comenzarPaseoVivo")
+    public void comenzarPaseoVivo(Subasta subasta){
+        this.simpMessagingTemplate.convertAndSend("/topic/comenzarPaseoVivo."+subasta.getCreador().getCorreo(),subasta);
+    }
+
     @EventListener
     private void handleSessionConnect(SessionConnectedEvent event){
         System.out.println("Conectadoooooooooooooooo "+event.getMessage().getHeaders());
@@ -184,10 +189,10 @@ public class STOMPMessagesHandler {
             }else if (this.sesionesSubastaPaseadores.get(event.getSessionId()) != null){
                 int numSubasta = (Integer) this.sesionesSubastaPaseadores.get(event.getSessionId()).get(0);
                 Paseador paseador = (Paseador)this.sesionesSubastaPaseadores.get(event.getSessionId()).get(1);
-                Subasta subasta = new Subasta();
-                subasta.setId(numSubasta);
+                Subasta subasta = this.easyCareService.getSubasta(numSubasta);
                 this.easyCareService.salirDeSubasta(paseador,subasta);
                 this.simpMessagingTemplate.convertAndSend("/topic/eliminarpaseador/subasta."+numSubasta, paseador);
+                this.simpMessagingTemplate.convertAndSend("/topic/cancelarPaseo."+subasta.getCreador().getCorreo(), subasta);
             }
         } catch (ExceptionServiciosEasyCare exceptionServiciosEasyCare) {
             exceptionServiciosEasyCare.printStackTrace();
