@@ -59,7 +59,7 @@ public class MascotasController {
         }
     }
 
-    @PutMapping("/mascota")
+    @PutMapping("")
     @ApiOperation(value = "Permite actualizar la mascota", notes = "No devuelve algún valor")
     public ResponseEntity<?> actualizarMascota(@Valid @RequestBody Mascota mascota){
         try {
