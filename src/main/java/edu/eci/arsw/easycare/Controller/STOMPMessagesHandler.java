@@ -166,6 +166,11 @@ public class STOMPMessagesHandler {
         this.simpMessagingTemplate.convertAndSend("/topic/comenzarPaseoVivo."+subasta.getCreador().getCorreo(),subasta);
     }
 
+    @MessageMapping("/finalizarPaseo")
+    public void finalizarPaseo(Subasta subasta){
+        this.simpMessagingTemplate.convertAndSend("/topic/finPaseo."+subasta.getCreador().getCorreo(), subasta);
+    }
+
     @EventListener
     private void handleSessionConnect(SessionConnectedEvent event){
         System.out.println("Conectadoooooooooooooooo "+event.getMessage().getHeaders());

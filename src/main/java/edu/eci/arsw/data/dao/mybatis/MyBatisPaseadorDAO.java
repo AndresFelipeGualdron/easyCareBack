@@ -95,6 +95,7 @@ public class MyBatisPaseadorDAO implements PaseadorDAO {
         try{
             this.paseador.update(paseador);
         }catch (Exception e){
+            e.printStackTrace();
             throw new PersistenceException(PersistenceException.ERROR_EN_LA_SOLICITUD);
         }
     }

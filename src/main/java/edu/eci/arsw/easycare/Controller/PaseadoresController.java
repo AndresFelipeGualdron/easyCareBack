@@ -159,6 +159,8 @@ public class PaseadoresController {
     @PutMapping("/actualizar")
     public ResponseEntity<?> actualizarPaseador(@Valid @RequestBody Paseador paseador){
         try{
+            System.out.println("888888888888888888888 "+paseador.getCalificacion());
+            this.easyCareService.actualizarPaseador(paseador);
             return new ResponseEntity<>(paseador, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             e.printStackTrace();
