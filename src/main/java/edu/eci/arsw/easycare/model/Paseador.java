@@ -20,8 +20,10 @@ public class Paseador {
     private String correo;
     @ApiModelProperty(value = "telefono del paseador", required = true)
     private String telefono;
-    @ApiModelProperty(value = "Clificación del paseador", required = true)
-    private Long calificacion;
+    @ApiModelProperty(value = "Calificación del paseador", required = true)
+    private float calificacion;
+    @ApiModelProperty(value = "Número de calificaciones recibidas", required = true)
+    private Long numCalificaciones;
 
     @ApiModelProperty(value = "Los paseos que ha ofertado el paseador", required = true)
     private ArrayList<Paseo> paseosOfrecidos;
@@ -134,11 +136,11 @@ public class Paseador {
         this.password = password;
     }
 
-    public Long getCalificacion(){
+    public float getCalificacion(){
         return this.calificacion;
     }
 
-    public void setCalificacion(Long calificacion){
+    public void setCalificacion(float calificacion){
         this.calificacion = calificacion;
     }
 
@@ -148,5 +150,13 @@ public class Paseador {
 
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public Long getNumCalificaciones() {
+        return numCalificaciones;
+    }
+
+    public void setNumCalificaciones(Long numCalificacionesñ) {
+        this.numCalificaciones = numCalificacionesñ;
     }
 }
