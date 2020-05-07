@@ -33,6 +33,6 @@ public interface PaseadorMapper {
     @Insert("INSERT INTO paseador_subasta (docpaseador,tipodocpaseador,idsubasta) VALUES (#{paseador.documento},#{paseador.tipoDocumento},#{subasta.id})")
     void entrarASubasta(@Param("subasta") Subasta subasta, @Param("paseador") Paseador paseador);
 
-    @Update("UPDATE paseador SET calificacion = #{paseador.calificacion}, documento = #{paseador.documento}, tipodocumento = #{paseador.tipoDocumento}, nombre = #{paseador.nombre}, correo = #{paseador.correo}, telefono = #{paseador.telefono} WHERE documento = #{paseador.documento} AND tipodocumento = #{paseador.tipoDocumento}")
+    @Update("UPDATE paseador SET numcalificaciones = #{paseador.numCalificaciones}, calificacion = #{paseador.calificacion}, documento = #{paseador.documento}, tipodocumento = #{paseador.tipoDocumento}, nombre = #{paseador.nombre}, correo = #{paseador.correo}, telefono = #{paseador.telefono} WHERE documento = #{paseador.documento} AND tipodocumento = #{paseador.tipoDocumento}")
     void update(@Param("paseador") Paseador paseador);
 }
